@@ -1,10 +1,11 @@
-<div *ngIf="characters$ | async as characters">
-    <div *ngFor="let character of characters">
-      <h3>{{ character.name }}</h3>
-      <img [src]="character.image" alt="{{ character.name }}" width="100">
-      <p>Status: {{ character.status }}</p>
-      <p>Species: {{ character.species }}</p>
-      <!-- Add more details if you want -->
-    </div>
+<div *ngIf="characters$ | async as characters" class="character-grid">
+  <div class="character-card" *ngFor="let character of characters"
+    [ngStyle]="{'background-color': getCardColor(character.status)}">
+    <h3>{{ character.name }}</h3>
+    <img [src]="character.image" alt="{{ character.name }}" width="200">
+    <p>Status: {{ character.status }}</p>
+    <p>Species: {{ character.species }}</p>
+    <p>Gender: {{ character.gender }}</p>
   </div>
-  
+</div>
+<app-navigation-buttons [currentPage]="1" type="characters"></app-navigation-buttons>

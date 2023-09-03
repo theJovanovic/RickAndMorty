@@ -1,0 +1,32 @@
+/* This will hold the pagination buttons and center them on the page */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+/* Basic styling for the pagination buttons */
+.pagination-btn {
+    padding: 10px 20px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    background-color: #007BFF;  /* This is a blue color. Feel free to change to suit your theme. */
+    color: #fff;
+    font-weight: bold;
+}
+
+/* Hover effect */
+.pagination-btn:hover {
+    background-color: #0056b3;  /* A slightly darker blue for hover */
+    transform: scale(1.05);
+}
+
+/* Active/Focus effect */
+.pagination-btn:active, .pagination-btn:focus {
+    outline: none;
+    transform: scale(0.95);
+}

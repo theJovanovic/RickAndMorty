@@ -7,15 +7,16 @@ import { RickMortyApiService } from '../../services/rick-morty-api.service';
 
 @Injectable()
 export class CharacterEffects {
+
+  constructor(private actions$: Actions, private apiService: RickMortyApiService) {}
+
   loadCharacters$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(CharacterActions.loadCharacters),
-      mergeMap(() => this.apiService.getCharacters().pipe(
-        map(data => CharacterActions.loadCharactersSuccess({ data })),
-        catchError(error => of(CharacterActions.loadCharactersFailure({ error })))
+      ofType(CharacterActions.loadCharacters), // pristupa funkcijama iz actions fajlas
+      mergeMap((action) => this.apiService.getCharacters(action.page).pipe(
+        map(data => CharacterActions.loadCharactersSuccess({ data })), // pristupa funkcijama iz actions fajlas
+        catchError(error => of(CharacterActions.loadCharactersFailure({ error }))) // pristupa funkcijama iz actions fajlas
       ))
     )
   );
-
-  constructor(private actions$: Actions, private apiService: RickMortyApiService) {}
 }

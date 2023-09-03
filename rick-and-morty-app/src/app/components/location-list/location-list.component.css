@@ -1,0 +1,29 @@
+.location-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.location-card {
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s;
+}
+
+.location-card:hover {
+    transform: translateY(-10px);
+}
+
+h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+p {
+    margin-bottom: 10px;
+    font-size: 1em;
+}

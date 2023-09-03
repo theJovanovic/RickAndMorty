@@ -1,7 +1,7 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import * as CharacterActions from '../actions/character.actions';
 
-export const characterFeatureKey = 'character';
+export const characterFeatureKey = 'character'; // kljuc na osnovu kojeg se referencira reducer
 
 export interface State {
   characters: any[];

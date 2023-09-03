@@ -1,0 +1,25 @@
+.character-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+    padding: 16px;
+    grid-auto-rows: auto;
+    text-align: center;
+}
+
+.character-card {
+    border: 1px solid #e0e0e0;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s;
+}
+
+.character-card:hover {
+    transform: scale(1.05);
+}
+
+.character-card img {
+    border-radius: 8px;
+    margin-bottom: 12px;
+}

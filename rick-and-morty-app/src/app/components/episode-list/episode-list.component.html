@@ -1,0 +1,9 @@
+<div *ngIf="episodes$ | async as episodes" class="episode-grid">
+    <div *ngFor="let episode of episodes" class="episode-card"
+        [ngStyle]="{'background-color': getCardColor(episode.episode)}">
+        <h3>{{ episode.name }}</h3>
+        <p><strong>Episode:</strong> {{ episode.episode }}</p>
+        <p><strong>Air date:</strong> {{ episode.air_date }}</p>
+    </div>
+</div>
+<app-navigation-buttons [currentPage]=" 1" type="episodes"></app-navigation-buttons>
