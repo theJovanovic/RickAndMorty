@@ -4,17 +4,18 @@ import { of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import * as EpisodeActions from '../actions/episode.actions';
 import { RickMortyApiService } from '../../services/rick-morty-api.service';
+import { Episode } from 'src/app/models/Episode';
 
 @Injectable()
 export class EpisodeEffects {
 
-  constructor(private actions$: Actions, private apiService: RickMortyApiService) {}
+  constructor(private actions$: Actions, private apiService: RickMortyApiService) { }
 
   loadEpisodes$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EpisodeActions.loadEpisodes),
       mergeMap((action) => this.apiService.getEpisodes(action.page).pipe(
-        map(data => EpisodeActions.loadEpisodesSuccess({ data })), 
+        map((data) => EpisodeActions.loadEpisodesSuccess({ data: data.results as Episode[]})),
         catchError(error => of(EpisodeActions.loadEpisodesFailure({ error })))
       ))
     )

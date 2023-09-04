@@ -1,16 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
-
-interface ApiResponse {
-  info: {
-    count: number;
-    pages: number;
-    next: string;
-    prev: string | null;
-  };
-  results: any[]
-}
+import { ApiResponse } from '../models/ApiResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -20,31 +11,28 @@ export class RickMortyApiService {
 
   constructor(private http: HttpClient) {}
 
-  getCharacters(page: number = 1): Observable<any> {
-    return this.http.get(`${this.API_URL}/character/?page=${page}`);
+  getCharacters(page: number = 1): Observable<ApiResponse> {
+    return this.http.get(`${this.API_URL}/character/?page=${page}`) as Observable<ApiResponse>;
   }
-
-  getCharacterPages(): Observable<any> {
+  getCharacterPages(): Observable<number> {
     return this.http.get<ApiResponse>(`${this.API_URL}/character`).pipe(
       map((result) => result.info.pages)
     );
   }
 
-  getLocations(page: number = 1): Observable<any> {
-    return this.http.get(`${this.API_URL}/location/?page=${page}`);
+  getLocations(page: number = 1): Observable<ApiResponse> {
+    return this.http.get(`${this.API_URL}/location/?page=${page}`) as Observable<ApiResponse>;
   }
-
-  getLocationPages(): Observable<any> {
+  getLocationPages(): Observable<number> {
     return this.http.get<ApiResponse>(`${this.API_URL}/location`).pipe(
       map((result) => result.info.pages)
     );
   }
 
-  getEpisodes(page: number = 1): Observable<any> {
-    return this.http.get(`${this.API_URL}/episode/?page=${page}`);
+  getEpisodes(page: number = 1): Observable<ApiResponse> {
+    return this.http.get(`${this.API_URL}/episode/?page=${page}`) as Observable<ApiResponse>;
   }
-
-  getEpisodePages(): Observable<any> {
+  getEpisodePages(): Observable<number> {
     return this.http.get<ApiResponse>(`${this.API_URL}/episode`).pipe(
       map((result) => result.info.pages)
     );

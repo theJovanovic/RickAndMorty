@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import * as CharacterActions from '../../store/actions/character.actions';
 import { selectCharacters } from '../../store/selectors/character.selectors';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { Character } from 'src/app/models/Character';
 
 @Component({
   selector: 'app-character-list',
@@ -12,9 +14,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CharacterListComponent implements OnInit {
 
-  characters$!: Observable<any>;
+  characters$!: Observable<Character[]>;
 
-  constructor(private router: Router, private route: ActivatedRoute, private store: Store) { }
+  constructor(private route: ActivatedRoute, private store: Store) { }
 
   getCardColor(status: string): string {
     let color;
@@ -34,10 +36,12 @@ export class CharacterListComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.route.paramMap.subscribe(params => {
-      const page = +params.get("page")!
-      this.store.dispatch(CharacterActions.loadCharacters({ page }));
-    });
+    this.route.paramMap.pipe(
+      tap((params) => {
+        const page = +params.get("page")!
+        this.store.dispatch(CharacterActions.loadCharacters({ page }));
+      })
+    ).subscribe();
 
     this.characters$ = this.store.select(selectCharacters); // getting a specific information from the store
   }

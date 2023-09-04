@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { selectEpisodes } from 'src/app/store/selectors/episode.selectors';
 import * as EpisodeActions from '../../store/actions/episode.actions';
 import { ActivatedRoute } from '@angular/router';
+import { Episode } from 'src/app/models/Episode';
 
 @Component({
   selector: 'app-episode-list',
@@ -11,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./episode-list.component.css']
 })
 export class EpisodeListComponent implements OnInit {
-  episodes$!: Observable<any>;
+  episodes$!: Observable<Episode[]>;
   seasonColorMap: { [season: string]: string } = {};
 
   constructor(private route: ActivatedRoute, private store: Store) { }

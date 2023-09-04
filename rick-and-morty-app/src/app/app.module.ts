@@ -16,6 +16,7 @@ import { EpisodeListComponent } from './components/episode-list/episode-list.com
 import { LocationEffects } from './store/effects/location.effects';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { EpisodeEffects } from './store/effects/episode.effects';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,7 @@ import { EpisodeEffects } from './store/effects/episode.effects';
     EffectsModule.forRoot([
       CharacterEffects,
       LocationEffects,
-      EpisodeEffects]), // needed for effects functionality
+      EpisodeEffects]), BrowserAnimationsModule, // needed for effects functionality
   ],
   providers: [],
   bootstrap: [AppComponent]

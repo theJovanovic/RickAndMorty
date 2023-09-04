@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { selectLocations } from 'src/app/store/selectors/location.selectors';
 import * as LocationActions from '../../store/actions/location.actions';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from 'src/app/models/Location';
 
 @Component({
   selector: 'app-location-list',
@@ -11,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./location-list.component.css']
 })
 export class LocationListComponent implements OnInit {
-  locations$!: Observable<any>;
+  locations$!: Observable<Location[]>;
   typeColorMap: { [type: string]: string } = {};
 
   constructor(private route: ActivatedRoute, private store: Store) { }
