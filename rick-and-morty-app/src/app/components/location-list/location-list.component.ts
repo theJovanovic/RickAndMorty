@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { selectLocations } from 'src/app/store/selectors/location.selectors';
-import * as LocationActions from '../../store/actions/location.actions';
+import { selectLocations } from 'src/app/store/selectors/location-list.selectors';
+import * as LocationActions from '../../store/actions/location-list.actions';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from 'src/app/models/Location';
 

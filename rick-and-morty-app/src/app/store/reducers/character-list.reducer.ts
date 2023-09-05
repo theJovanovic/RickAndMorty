@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import * as CharacterActions from '../actions/character.actions';
+import * as CharacterActions from '../actions/character-list.actions';
 import { Character } from 'src/app/models/Character';
 
 export const characterFeatureKey = 'character'; // kljuc na osnovu kojeg se referencira reducer

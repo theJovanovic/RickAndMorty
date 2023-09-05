@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { selectEpisodes } from 'src/app/store/selectors/episode.selectors';
-import * as EpisodeActions from '../../store/actions/episode.actions';
+import { selectEpisodes } from 'src/app/store/selectors/episode-list.selectors';
+import * as EpisodeActions from '../../store/actions/episode-list.actions';
 import { ActivatedRoute } from '@angular/router';
 import { Episode } from 'src/app/models/Episode';
 

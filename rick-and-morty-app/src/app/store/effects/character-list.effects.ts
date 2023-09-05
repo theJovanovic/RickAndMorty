@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, map, mergeMap } from 'rxjs/operators';
-import * as CharacterActions from '../actions/character.actions';
+import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import * as CharacterListActions from '../actions/character-list.actions';
 import { RickMortyApiService } from '../../services/rick-morty-api.service';
 import { Character } from 'src/app/models/Character';
 
@@ -15,14 +15,12 @@ export class CharacterEffects {
 
   loadCharacters$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(CharacterActions.loadCharacters), // efekat je ove akcije
+      ofType(CharacterListActions.loadCharacters), // efekat je ove akcije
       mergeMap((action) => this.apiService.getCharacters(action.page).pipe( // action nosi podatke o akciji
-        map((data) => CharacterActions.loadCharactersSuccess({ data: data.results as Character[] })), // data je odgovor poziva servisne funkcije
-        catchError(error => of(CharacterActions.loadCharactersFailure({ error })))
+        map((data) => CharacterListActions.loadCharactersSuccess({ data: data.results as Character[] })), // data je odgovor poziva servisne funkcije
+        catchError(error => of(CharacterListActions.loadCharactersFailure({ error })))
       ))
     )
   );
-
-
 
 }

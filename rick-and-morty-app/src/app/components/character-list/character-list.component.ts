@@ -1,11 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, tap } from 'rxjs';
-import * as CharacterActions from '../../store/actions/character.actions';
-import { selectCharacters } from '../../store/selectors/character.selectors';
+import * as CharacterActions from '../../store/actions/character-list.actions';
+import { selectCharacters } from '../../store/selectors/character-list.selectors';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
 import { Character } from 'src/app/models/Character';
+import { MatDialog } from '@angular/material/dialog';
+import { CharacterDialogComponent } from '../character-dialog/character-dialog.component';
 
 @Component({
   selector: 'app-character-list',
@@ -16,7 +17,7 @@ export class CharacterListComponent implements OnInit {
 
   characters$!: Observable<Character[]>;
 
-  constructor(private route: ActivatedRoute, private store: Store) { }
+  constructor(private route: ActivatedRoute, private store: Store, private dialog: MatDialog) { }
 
   getCardColor(status: string): string {
     let color;
@@ -32,6 +33,10 @@ export class CharacterListComponent implements OnInit {
         break;
     }
     return color;
+  }
+
+  onCharacterClick(character: Character): void {
+    this.dialog.open(CharacterDialogComponent, {data: character})
   }
 
   ngOnInit(): void {

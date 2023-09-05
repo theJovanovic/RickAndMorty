@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import * as LocationActions from '../actions/location.actions';
+import * as LocationActions from '../actions/location-list.actions';
 import { Location } from 'src/app/models/Location';
 
 export const locationFeatureKey = 'location'; // kljuc na osnovu kojeg se referencira reducer

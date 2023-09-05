@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import * as EpisodeActions from '../actions/episode.actions';
+import * as EpisodeActions from '../actions/episode-list.actions';
 import { Episode } from 'src/app/models/Episode';
 
 export const locationFeatureKey = 'episode'; // kljuc na osnovu kojeg se referencira reducer

@@ -6,17 +6,19 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { CharacterListComponent } from './components/character-list/character-list.component';
 import { HttpClientModule } from '@angular/common/http';
-import { CharacterEffects } from './store/effects/character.effects';
-import * as fromCharacter from './store/reducers/character.reducer';
-import * as fromLocation from './store/reducers/location.reducer';
-import * as fromEpisode from './store/reducers/episode.reducer';
+import { CharacterEffects } from './store/effects/character-list.effects';
+import * as fromCharacter from './store/reducers/character-list.reducer';
+import * as fromLocation from './store/reducers/location-list.reducer';
+import * as fromEpisode from './store/reducers/episode-list.reducer';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LocationListComponent } from './components/location-list/location-list.component';
 import { EpisodeListComponent } from './components/episode-list/episode-list.component';
-import { LocationEffects } from './store/effects/location.effects';
+import { LocationEffects } from './store/effects/location-list.effects';
 import { PaginationComponent } from './components/pagination/pagination.component';
-import { EpisodeEffects } from './store/effects/episode.effects';
+import { EpisodeEffects } from './store/effects/episode-list.effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CharacterDialogComponent } from './components/character-dialog/character-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -25,22 +27,25 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CharacterListComponent,
     LocationListComponent,
     EpisodeListComponent,
-    PaginationComponent
+    PaginationComponent,
+    CharacterDialogComponent,
   ],
   imports: [
-    BrowserModule, // basic import (must-have)
-    AppRoutingModule, // for easy navigation between pages
-    HttpClientModule, // for http communications
-    StoreModule.forRoot(
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    StoreModule.forRoot( // ovo su kljucevi reducera
       {
         character: fromCharacter.reducer,
         location: fromLocation.reducer,
         episode: fromEpisode.reducer
-      }), // needed for store functionality
+      }),
     EffectsModule.forRoot([
       CharacterEffects,
       LocationEffects,
-      EpisodeEffects]), BrowserAnimationsModule, // needed for effects functionality
+      EpisodeEffects]),
+    BrowserAnimationsModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

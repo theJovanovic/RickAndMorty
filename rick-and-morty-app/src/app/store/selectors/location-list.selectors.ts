@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { State } from '../reducers/location.reducer';
+import { State } from '../reducers/location-list.reducer';
 
 export const selectLocationState = createFeatureSelector<State>('location'); // kljuc reducer-a
 
