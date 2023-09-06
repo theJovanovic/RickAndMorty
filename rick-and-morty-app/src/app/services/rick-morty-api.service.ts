@@ -1,42 +1,57 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
-import { ApiResponse } from '../models/ApiResponse';
+import { Injectable } from '@angular/core'
+import { HttpClient } from '@angular/common/http'
+import { Observable, forkJoin, map, mergeMap } from 'rxjs'
+import { ApiResponse } from '../models/ApiResponse'
+import { Episode } from '../models/Episode'
+
+export const API_URL = 'https://rickandmortyapi.com/api'
 
 @Injectable({
   providedIn: 'root'
 })
 export class RickMortyApiService {
-  private readonly API_URL = 'https://rickandmortyapi.com/api';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getCharacters(page: number = 1): Observable<ApiResponse> {
-    return this.http.get(`${this.API_URL}/character/?page=${page}`) as Observable<ApiResponse>;
+    return this.http.get(`${API_URL}/character/?page=${page}`) as Observable<ApiResponse>
   }
   getCharacterPages(): Observable<number> {
-    return this.http.get<ApiResponse>(`${this.API_URL}/character`).pipe(
+    return this.http.get<ApiResponse>(`${API_URL}/character`).pipe(
       map((result) => result.info.pages)
-    );
+    )
   }
 
   getLocations(page: number = 1): Observable<ApiResponse> {
-    return this.http.get(`${this.API_URL}/location/?page=${page}`) as Observable<ApiResponse>;
+    return this.http.get(`${API_URL}/location/?page=${page}`) as Observable<ApiResponse>
   }
   getLocationPages(): Observable<number> {
-    return this.http.get<ApiResponse>(`${this.API_URL}/location`).pipe(
+    return this.http.get<ApiResponse>(`${API_URL}/location`).pipe(
       map((result) => result.info.pages)
-    );
+    )
   }
 
   getEpisodes(page: number = 1): Observable<ApiResponse> {
-    return this.http.get(`${this.API_URL}/episode/?page=${page}`) as Observable<ApiResponse>;
+    return this.http.get(`${API_URL}/episode/?page=${page}`) as Observable<ApiResponse>
   }
   getEpisodePages(): Observable<number> {
-    return this.http.get<ApiResponse>(`${this.API_URL}/episode`).pipe(
+    return this.http.get<ApiResponse>(`${API_URL}/episode`).pipe(
       map((result) => result.info.pages)
-    );
+    )
   }
-  
-  // Add other endpoint functions as needed
+  getAllEpisodes(): Observable<Episode[]> {
+    return this.http.get<any>(`${API_URL}/episode`).pipe(
+      mergeMap(firstPageResponse => {
+        const totalPages = firstPageResponse.info.pages
+        const episodeRequests = []
+
+        for (let i = 1; i <= totalPages; i++) {
+          episodeRequests.push(this.http.get<any>(`${API_URL}/episode/?page=${i}`))
+        }
+
+        return forkJoin(episodeRequests)
+      }),
+      mergeMap(responses => [[].concat(...responses.map(res => res.results))])
+    )
+  }
 }

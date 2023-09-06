@@ -1,25 +1,94 @@
 .character-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 16px;
-    padding: 16px;
-    grid-auto-rows: auto;
-    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 15px;
+    justify-content: center;
 }
 
 .character-card {
-    border: 1px solid #e0e0e0;
-    padding: 16px;
+    display: flex;
+    background-color: #f9f9f9;
+    padding: 15px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    transition: transform 0.2s;
+    box-shadow: -4px 4px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    border: 1px solid black;
+    max-width: 440px;
 }
 
 .character-card:hover {
     transform: scale(1.05);
 }
 
-.character-card img {
-    border-radius: 8px;
-    margin-bottom: 12px;
+.character-image {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.character-image img {
+    width: 200px;
+    height: 200px;
+    border-radius: 5%;
+    box-shadow: -4px 4px 8px rgba(0, 0, 0, 0.3);
+    border: 3px solid black;
+    object-fit: cover;
+}
+
+.character-info-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding-left: 15px;
+}
+
+.location-info {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.location-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(224, 244, 244, 0.9);
+    text-align: center;
+    padding: 10px;
+    font-size: 12px;
+    margin-top: 5px;
+    word-break: break-word;
+    overflow: hidden;
+    border: 1px solid black;
+    box-shadow: -4px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.character-details h3 {
+    font-size: 20px;
+    margin: 5px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    flex-wrap: wrap;
+}
+
+.character-details p {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+label {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 5px;
 }

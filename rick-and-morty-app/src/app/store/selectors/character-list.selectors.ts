@@ -1,9 +1,9 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { State } from '../reducers/character-list.reducer';
+import { createFeatureSelector, createSelector } from '@ngrx/store'
+import { CharacterState } from '../reducers/character-list.reducer'
 
-export const selectCharacterState = createFeatureSelector<State>('character'); // kljuc reducer-a
+export const selectCharactersState = createFeatureSelector<CharacterState>('character') // kljuc reducer-a
 
 export const selectCharacters = createSelector(
-  selectCharacterState,
-  (state: State) => state.characters
-);
+  selectCharactersState,
+  (state: CharacterState) => state.characters
+)

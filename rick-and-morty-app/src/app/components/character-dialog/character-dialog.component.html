@@ -1,7 +1,14 @@
-<div>
-    <h3>{{ character.name }}</h3>
-    <img [src]="character.image" alt="{{ character.name }}" width="200">
-    <p>Status: {{ character.status }}</p>
-    <p>Species: {{ character.species }}</p>
-    <p>Gender: {{ character.gender }}</p>
+<div class="character-info">
+    <div class="circle-container">
+        <div class="episode-list" *ngIf="(episodes$ | async) as episodes">
+            <div class="episode-badge" *ngFor="let episode of episodes; let i = index"
+                [ngStyle]="getBadgePosition(i, episodes.length)" [style.background-color]="getBadgeColor(episode.id)">
+                {{ episode.episode }}
+            </div>
+        </div>
+    </div>
+    <div class="character-header">
+        <img class="character-image" [src]="character.image" alt="{{ character.name }}">
+        <h3>{{character.name}}</h3>
+    </div>
 </div>

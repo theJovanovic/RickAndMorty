@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { selectEpisodes } from 'src/app/store/selectors/episode-list.selectors';
-import * as EpisodeActions from '../../store/actions/episode-list.actions';
-import { ActivatedRoute } from '@angular/router';
-import { Episode } from 'src/app/models/Episode';
+import { Component, OnInit } from '@angular/core'
+import { Store } from '@ngrx/store'
+import { Observable } from 'rxjs'
+import { selectEpisodes } from 'src/app/store/selectors/episode-list.selectors'
+import * as EpisodeActions from '../../store/actions/episode-list.actions'
+import { ActivatedRoute } from '@angular/router'
+import { Episode } from 'src/app/models/Episode'
 
 @Component({
   selector: 'app-episode-list',
@@ -12,35 +12,35 @@ import { Episode } from 'src/app/models/Episode';
   styleUrls: ['./episode-list.component.css']
 })
 export class EpisodeListComponent implements OnInit {
-  episodes$!: Observable<Episode[]>;
-  seasonColorMap: { [season: string]: string } = {};
+  episodes$!: Observable<Episode[]>
+  seasonColorMap: { [season: string]: string } = {}
 
   constructor(private route: ActivatedRoute, private store: Store) { }
 
   getCardColor(episode: string): string {
-    const season = episode.substring(1, 3);
+    const season = episode.substring(1, 3)
     if (!this.seasonColorMap[season]) {
-      this.seasonColorMap[season] = this.getRandomColor();
+      this.seasonColorMap[season] = this.getRandomColor()
     }
-    return this.seasonColorMap[season];
+    return this.seasonColorMap[season]
   }
 
   getRandomColor(opacity: number = 0.5): string {
-    const r = Math.floor(Math.random() * 256);
-    const g = Math.floor(Math.random() * 256);
-    const b = Math.floor(Math.random() * 256);
+    const r = Math.floor(Math.random() * 256)
+    const g = Math.floor(Math.random() * 256)
+    const b = Math.floor(Math.random() * 256)
   
-    return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+    return `rgba(${r}, ${g}, ${b}, ${opacity})`
   }
 
   ngOnInit(): void {
 
     this.route.paramMap.subscribe(params => {
       const page = +params.get("page")!
-      this.store.dispatch(EpisodeActions.loadEpisodes({ page }));
-    });
+      this.store.dispatch(EpisodeActions.loadEpisodes({ page }))
+    })
 
-    this.episodes$ = this.store.select(selectEpisodes);
+    this.episodes$ = this.store.select(selectEpisodes)
   }
 
 }

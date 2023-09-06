@@ -1,17 +1,16 @@
-import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { of } from 'rxjs';
-import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
-import * as CharacterListActions from '../actions/character-list.actions';
-import { RickMortyApiService } from '../../services/rick-morty-api.service';
-import { Character } from 'src/app/models/Character';
+import { Injectable } from '@angular/core'
+import { Actions, createEffect, ofType } from '@ngrx/effects'
+import { of } from 'rxjs'
+import { catchError, map, mergeMap } from 'rxjs/operators'
+import * as CharacterListActions from '../actions/character-list.actions'
+import { RickMortyApiService } from '../../services/rick-morty-api.service'
+import { Character } from 'src/app/models/Character'
 
 @Injectable()
 export class CharacterEffects {
 
   constructor(
-    private actions$: Actions,
-    private apiService: RickMortyApiService) { }
+    private actions$: Actions, private apiService: RickMortyApiService) { }
 
   loadCharacters$ = createEffect(() =>
     this.actions$.pipe(
@@ -21,6 +20,6 @@ export class CharacterEffects {
         catchError(error => of(CharacterListActions.loadCharactersFailure({ error })))
       ))
     )
-  );
+  )
 
 }
