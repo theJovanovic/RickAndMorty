@@ -88,10 +88,10 @@ export class MemoryCardsComponent implements OnInit {
       debounceTime(1000),
       tap(() => {
         this.numCards += 6
-        this.updateRoundCounter(this.numCards / 6)
         const characterIds: string = this.generateRandomNumbers(this.numCards)
         this.store.dispatch(CharacterActions.loadSpecificCharacters({ characterIds }))
         Card.idCounter = 0
+        this.updateRoundCounter(this.numCards / 6)
       })
     ).subscribe();
 
