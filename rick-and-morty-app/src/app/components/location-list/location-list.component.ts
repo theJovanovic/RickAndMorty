@@ -17,6 +17,15 @@ export class LocationListComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private store: Store) { }
 
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      const page = +params.get("page")!
+      this.store.dispatch(LocationActions.loadLocations({ page }))
+    })
+
+    this.locations$ = this.store.select(selectLocations)
+  }
+
   getCardColor(type: string): string {
     if (!this.typeColorMap[type]) {
       this.typeColorMap[type] = this.getRandomColor()
@@ -28,18 +37,10 @@ export class LocationListComponent implements OnInit {
     const r = Math.floor(Math.random() * 256)
     const g = Math.floor(Math.random() * 256)
     const b = Math.floor(Math.random() * 256)
-  
+
     return `rgba(${r}, ${g}, ${b}, ${opacity})`
   }
 
-  ngOnInit(): void {
 
-    this.route.paramMap.subscribe(params => {
-      const page = +params.get("page")!
-      this.store.dispatch(LocationActions.loadLocations({ page }))
-    })
-
-    this.locations$ = this.store.select(selectLocations)
-  }
 
 }

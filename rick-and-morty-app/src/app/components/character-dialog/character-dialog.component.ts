@@ -1,11 +1,11 @@
-import { Component, Inject } from '@angular/core'
+import { Component, Inject, OnInit } from '@angular/core'
 import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
 import { Character } from 'src/app/models/Character'
 import { Episode } from 'src/app/models/Episode'
-import { selectAllEpisodes } from 'src/app/store/selectors/episode-list.selectors'
-import * as AllEpisodeActions from 'src/app/store/actions/episode-list.actions'
+import { selectEpisodes } from 'src/app/store/selectors/episode.selectors'
+import * as EpisodeActions from 'src/app/store/actions/episode.actions'
 import { API_URL } from 'src/app/services/rick-morty-api.service'
 
 
@@ -14,14 +14,17 @@ import { API_URL } from 'src/app/services/rick-morty-api.service'
   templateUrl: './character-dialog.component.html',
   styleUrls: ['./character-dialog.component.css']
 })
-export class CharacterDialogComponent {
+export class CharacterDialogComponent implements OnInit {
   character: Character
   episodes$!: Observable<Episode[]>
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: Character, private store: Store) {
     this.character = data
-    this.store.dispatch(AllEpisodeActions.loadAllEpisodes())
-    this.episodes$ = this.store.select(selectAllEpisodes)
+  }
+
+  ngOnInit(): void {
+    this.store.dispatch(EpisodeActions.loadAllEpisodes())
+    this.episodes$ = this.store.select(selectEpisodes)
   }
 
   getBadgeColor(episodeId: number): string {
@@ -34,7 +37,7 @@ export class CharacterDialogComponent {
 
   getBadgePosition(index: number, total: number): { transform: string } {
     const angle = (360 / total) * index
-    const a = 550
+    const a = 560
     const b = 300
     const x = a * Math.cos((angle - 90) * Math.PI / 180)
     const y = b * Math.sin((angle - 90) * Math.PI / 180)
@@ -42,8 +45,6 @@ export class CharacterDialogComponent {
       transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`
     }
   }
-
-
 
 }
 

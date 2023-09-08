@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { Observable, forkJoin, map, mergeMap } from 'rxjs'
 import { ApiResponse } from '../models/ApiResponse'
 import { Episode } from '../models/Episode'
+import { Character } from '../models/Character'
 
 export const API_URL = 'https://rickandmortyapi.com/api'
 
@@ -15,6 +16,9 @@ export class RickMortyApiService {
 
   getCharacters(page: number = 1): Observable<ApiResponse> {
     return this.http.get(`${API_URL}/character/?page=${page}`) as Observable<ApiResponse>
+  }
+  getSpecificCharacters(characterIds: string): Observable<Character[]> {
+    return this.http.get(`${API_URL}/character/${characterIds}`) as Observable<Character[]>
   }
   getCharacterPages(): Observable<number> {
     return this.http.get<ApiResponse>(`${API_URL}/character`).pipe(

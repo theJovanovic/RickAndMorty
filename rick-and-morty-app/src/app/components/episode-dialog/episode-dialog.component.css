@@ -1,0 +1,57 @@
+.episode-card {
+    border: 5px solid black;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.85);
+    max-width: 550px;
+    max-height: 600px;
+    overflow-y: scroll;
+}
+
+.episode-title {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.episode-meta {
+    color: rgba(0, 0, 0, 0.7);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.episode-number {
+    margin-bottom: 0;
+}
+
+.episode-date {
+    margin-top: 0;
+}
+
+.characters-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: space-around;
+}
+
+.character-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.character-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 1px solid black;
+    box-shadow: -4px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.character-name {
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.7);
+    max-width: 150px;
+    text-align: center;
+    margin-top: 10px;
+}

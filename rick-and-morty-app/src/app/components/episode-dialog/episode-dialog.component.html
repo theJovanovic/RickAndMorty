@@ -1,0 +1,13 @@
+<div class="episode-card">
+    <h1 class="episode-title">{{ episode.name }}</h1>
+    <div class="episode-meta">
+        <h3 class="episode-number">{{ episode.episode }}</h3>
+        <h3 class="episode-date">{{ episode.air_date }}</h3>
+    </div>
+    <div class="characters-list" *ngIf="(charactersInEpisode$ | async) as charactersInEpisode">
+        <div *ngFor="let character of charactersInEpisode" class="character-item">
+            <img [src]="character.image" alt="{{ character.name }}" class="character-image">
+            <h4 class="character-name">{{ character.name }}</h4>
+        </div>
+    </div>
+</div>

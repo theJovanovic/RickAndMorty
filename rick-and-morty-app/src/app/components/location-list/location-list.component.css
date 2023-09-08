@@ -1,20 +1,22 @@
 .location-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 20px;
     padding: 20px;
+    justify-content: center;
 }
 
 .location-card {
     border: 1px solid #e0e0e0;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: -4px 4px 8px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s;
+    width: 300px;
 }
 
 .location-card:hover {
-    transform: translateY(-10px);
+    transform: scale(1.05);
 }
 
 h3 {

@@ -7,11 +7,11 @@
     <div class="character-info-wrapper">
       <div class="character-details">
         <h3>{{ character.name }}</h3>
-        <p>Status: <span>{{ character.status }}</span></p>
-        <p>Species: <span>{{ character.species }}</span></p>
-        <p>Gender: <span>{{ character.gender }}</span></p>
+        <p><strong>Status: </strong> <span>{{ character.status }}</span></p>
+        <p><strong>Species: </strong> <span>{{ character.species }}</span></p>
+        <p><strong>Gender: </strong> <span>{{ character.gender }}</span></p>
       </div>
-      <div class="location-info">
+      <div class="location-details">
         <div class="location-wrapper">
           <label>Origin:</label>
           <div class="circle origin" *ngIf="character.origin">

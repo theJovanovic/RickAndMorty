@@ -1,8 +1,8 @@
 .character-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
-    margin-top: 15px;
+    gap: 20px;
+    padding: 20px;
     justify-content: center;
 }
 
@@ -14,8 +14,8 @@
     box-shadow: -4px 4px 8px rgba(0, 0, 0, 0.3);
     cursor: pointer;
     transition: transform 0.3s ease-in-out;
-    border: 1px solid black;
-    max-width: 440px;
+    border: 1px solid #e0e0e0;
+    width: 440px;
 }
 
 .character-card:hover {
@@ -32,7 +32,7 @@
     height: 200px;
     border-radius: 5%;
     box-shadow: -4px 4px 8px rgba(0, 0, 0, 0.3);
-    border: 3px solid black;
+    border: 1px solid black;
     object-fit: cover;
 }
 
@@ -43,7 +43,26 @@
     padding-left: 15px;
 }
 
-.location-info {
+.character-details h3 {
+    font-size: 20px;
+    margin: 5px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.character-details p {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+label {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.location-details {
     display: flex;
     gap: 15px;
     margin-top: 10px;
@@ -69,26 +88,7 @@
     margin-top: 5px;
     word-break: break-word;
     overflow: hidden;
-    border: 1px solid black;
+    border: 1px solid rgba(0, 0, 0, 0.4);
     box-shadow: -4px 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-.character-details h3 {
-    font-size: 20px;
-    margin: 5px 0;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    flex-wrap: wrap;
-}
-
-.character-details p {
-    font-size: 14px;
-    margin: 5px 0;
-}
-
-label {
-    font-size: 12px;
-    font-weight: bold;
-    margin-bottom: 5px;
+    font-style: italic;
 }
