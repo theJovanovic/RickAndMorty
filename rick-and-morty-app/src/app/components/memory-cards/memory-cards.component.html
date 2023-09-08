@@ -1,1 +1,13 @@
-<p>memory-cards works!</p>
+<div style="text-align: center; align-items: center; justify-content: center;">
+    <div class="round-counter"><h1 id="round-header">Round: 1</h1></div>
+    <div class="card-grid">
+        <div *ngFor="let card of cards" class="card" [class.flipped]="card.flipped" (click)="flipCard(card)">
+            <div class="card-face card-back">
+                <img src="../../../assets/default_back_image.jpg" alt="Card Back">
+            </div>
+            <div class="card-face card-front">
+                <img [src]="card.characterImage">
+            </div>
+        </div>
+    </div>
+</div>

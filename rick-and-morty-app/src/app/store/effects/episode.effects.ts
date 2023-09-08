@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
-import { tap, of } from 'rxjs'
+import { of } from 'rxjs'
 import { catchError, map, mergeMap } from 'rxjs/operators'
 import * as EpisodeActions from '../actions/episode.actions'
 import { RickMortyApiService } from '../../services/rick-morty-api.service'

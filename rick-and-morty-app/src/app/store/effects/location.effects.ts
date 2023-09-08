@@ -15,7 +15,7 @@ export class LocationEffects {
     this.actions$.pipe(
       ofType(LocationActions.loadLocations), // pristupa funkcijama iz actions fajlas
       mergeMap((action) => this.apiService.getLocations(action.page).pipe(
-        map((data) => LocationActions.loadLocationsSuccess({ data: data.results as Location[]})), // pristupa funkcijama iz actions fajlas
+        map((data) => LocationActions.loadLocationsSuccess({ data: data.results as Location[] })), // pristupa funkcijama iz actions fajlas
         catchError((error) => of(LocationActions.loadLocationsFailure({ error }))) // pristupa funkcijama iz actions fajlas
       ))
     )
