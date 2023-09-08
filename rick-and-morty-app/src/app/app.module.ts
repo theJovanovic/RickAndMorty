@@ -20,7 +20,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { CharacterDialogComponent } from './components/character-dialog/character-dialog.component'
 import { MatDialogModule } from '@angular/material/dialog';
 import { EpisodeDialogComponent } from './components/episode-dialog/episode-dialog.component';
-import { MemoryCardsComponent } from './components/memory-cards/memory-cards.component'
+import { MemoryCardsComponent } from './components/memory-cards/memory-cards.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
 
 @NgModule({
   declarations: [
@@ -33,11 +34,14 @@ import { MemoryCardsComponent } from './components/memory-cards/memory-cards.com
     CharacterDialogComponent,
     EpisodeDialogComponent,
     MemoryCardsComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
     StoreModule.forRoot( // ovo su kljucevi reducera
       {
         character: fromCharacter.reducer,
@@ -47,9 +51,7 @@ import { MemoryCardsComponent } from './components/memory-cards/memory-cards.com
     EffectsModule.forRoot([
       CharacterEffects,
       LocationEffects,
-      EpisodeEffects]),
-    BrowserAnimationsModule,
-    MatDialogModule
+      EpisodeEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]
