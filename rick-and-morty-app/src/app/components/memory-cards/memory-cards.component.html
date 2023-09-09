@@ -1,5 +1,6 @@
 <div style="text-align: center; align-items: center; justify-content: center;">
     <div class="round-counter"><h1 id="round-header">Round: 1</h1></div>
+    <div class="flip-counter"><h1 id="flip-header">Flips: 0</h1></div>
     <div class="card-grid">
         <div *ngFor="let card of cards" class="card" [class.flipped]="card.flipped" (click)="flipCard(card)">
             <div class="card-face card-back">

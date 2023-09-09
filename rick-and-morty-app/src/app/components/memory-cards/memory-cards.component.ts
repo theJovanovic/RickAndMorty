@@ -13,12 +13,13 @@ import { selectCharacters } from 'src/app/store/selectors/character.selectors';
 })
 export class MemoryCardsComponent implements OnInit {
 
-  canFlip = true;
-  cards: Card[] = []
-  public numCards: number = 6
-  characters$!: Observable<Character[]>
+  public cards: Card[] = []
+  private canFlip = true;
+  private numFlips: number = 0
+  private numCards: number = 6
+  private characters$!: Observable<Character[]>
   private flipCardSubject = new Subject<Card>()
-  private flippedCardsSubject = new BehaviorSubject<Card[]>([])
+  private flippedAllCardsSubject = new BehaviorSubject<Card[]>([])
   private resetGameSubject = new Subject<void>();
 
   constructor(private store: Store) { }
@@ -48,40 +49,42 @@ export class MemoryCardsComponent implements OnInit {
     this.flipCardSubject.pipe(
       tap((card: Card) => {
         card.flipped = true;
-        const flipped = this.flippedCardsSubject.value;
-        this.flippedCardsSubject.next([...flipped, card]);
+        const flipped = this.flippedAllCardsSubject.value;
+        this.flippedAllCardsSubject.next([...flipped, card])
       })
     ).subscribe()
 
     // handle match checking logic
-    this.flippedCardsSubject.pipe(
+    this.flippedAllCardsSubject.pipe(
       filter(cards => cards.length === 2),
+      tap(_ => {
+        this.numFlips += 1
+        this.updateFlipCounter()
+      }),
       tap(() => this.canFlip = false),
       mergeMap((cards: Card[]) => {
-        // If cards don't match, use the delay
         if (cards[0].characterId !== cards[1].characterId) {
           return of(cards).pipe(
             delay(1000)
-          );
+          )
         }
-        // If cards match, no delay
-        return of(cards);
+        return of(cards)
       }),
       tap((cards: Card[]) => {
         if (cards[0].characterId !== cards[1].characterId) {
-          cards[0].flipped = false;
-          cards[1].flipped = false;
+          cards[0].flipped = false
+          cards[1].flipped = false
         }
-        this.flippedCardsSubject.next([]);
-        this.canFlip = true;
+        this.flippedAllCardsSubject.next([])
+        this.canFlip = true
       })
-    ).subscribe();
+    ).subscribe()
 
     // handle game reset logic when all cards are flipped
-    this.flippedCardsSubject.pipe(
+    this.flippedAllCardsSubject.pipe(
       filter(_ => this.cards.length > 0 && this.cards.every(card => card.flipped)),
       tap(() => this.resetGameSubject.next())
-    ).subscribe();
+    ).subscribe()
 
     // reset game logic
     this.resetGameSubject.pipe(
@@ -91,26 +94,31 @@ export class MemoryCardsComponent implements OnInit {
         const characterIds: string = this.generateRandomNumbers(this.numCards)
         this.store.dispatch(CharacterActions.loadSpecificCharacters({ characterIds }))
         Card.idCounter = 0
-        this.updateRoundCounter(this.numCards / 6)
+        this.updateRoundCounter()
       })
     ).subscribe();
 
   }
 
-  private updateRoundCounter(round: number) {
+  private updateRoundCounter() {
     const counter = document.getElementById('round-header')
-    counter!.innerText = `Round: ${round}`
+    counter!.innerText = `Round: ${this.numCards / 6}`
+  }
+
+  private updateFlipCounter() {
+    const counter = document.getElementById('flip-header')
+    counter!.innerText = `Flips: ${this.numFlips}`
   }
 
   private generateRandomNumbers(numCards: number): string {
-    const numbers = new Set<number>();
+    const numbers = new Set<number>()
 
     while (numbers.size < numCards / 2) {
-      const randomNumber = Math.floor(Math.random() * 825) + 1;
-      numbers.add(randomNumber);
+      const randomNumber = Math.floor(Math.random() * 825) + 1
+      numbers.add(randomNumber)
     }
 
-    return [...numbers].join(',');
+    return [...numbers].join(',')
   }
 
   private shuffle(cards: Card[]) {

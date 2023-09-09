@@ -58,3 +58,9 @@
     top: 30px;
     left: 0;
 }
+
+.flip-counter {
+    position: absolute;
+    top: 70px;
+    left: 0;
+}
