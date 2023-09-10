@@ -14,8 +14,8 @@ export class RickMortyApiService {
 
   constructor(private http: HttpClient) { }
 
-  getCharacters(page: number = 1): Observable<ApiResponse> {
-    return this.http.get(`${API_URL}/character/?page=${page}`) as Observable<ApiResponse>
+  getCharacters(query: string): Observable<ApiResponse> {
+    return this.http.get(`${API_URL}/character/?${query}`) as Observable<ApiResponse>
   }
   getSpecificCharacters(characterIds: string): Observable<Character[]> {
     return this.http.get(`${API_URL}/character/${characterIds}`) as Observable<Character[]>
@@ -26,8 +26,8 @@ export class RickMortyApiService {
     )
   }
 
-  getLocations(page: number = 1): Observable<ApiResponse> {
-    return this.http.get(`${API_URL}/location/?page=${page}`) as Observable<ApiResponse>
+  getLocations(query: string): Observable<ApiResponse> {
+    return this.http.get(`${API_URL}/location/?${query}`) as Observable<ApiResponse>
   }
   getLocationPages(): Observable<number> {
     return this.http.get<ApiResponse>(`${API_URL}/location`).pipe(
@@ -35,8 +35,8 @@ export class RickMortyApiService {
     )
   }
 
-  getEpisodes(page: number = 1): Observable<ApiResponse> {
-    return this.http.get(`${API_URL}/episode/?page=${page}`) as Observable<ApiResponse>
+  getEpisodes(query: string): Observable<ApiResponse> {
+    return this.http.get(`${API_URL}/episode/?${query}`) as Observable<ApiResponse>
   }
   getEpisodePages(): Observable<number> {
     return this.http.get<ApiResponse>(`${API_URL}/episode`).pipe(

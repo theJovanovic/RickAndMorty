@@ -14,8 +14,8 @@ export class EpisodeEffects {
   loadEpisodes$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EpisodeActions.loadEpisodes),
-      mergeMap((action) => this.apiService.getEpisodes(action.page).pipe(
-        map((data) => EpisodeActions.loadEpisodesSuccess({ data: data.results as Episode[] })),
+      mergeMap((action) => this.apiService.getEpisodes(action.query).pipe(
+        map((data) => EpisodeActions.loadEpisodesSuccess({ data: data.results as Episode[], prevUrl: data.info.prev, nextUrl: data.info.next, pages: data.info.pages })),
         catchError(error => of(EpisodeActions.loadEpisodesFailure({ error })))
       ))
     )

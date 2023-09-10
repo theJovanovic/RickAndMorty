@@ -7,12 +7,11 @@ import { MemoryCardsComponent } from './components/memory-cards/memory-cards.com
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
 
 const routes: Routes = [
-  { path: 'characters/:page', component: CharacterListComponent },
-  { path: 'locations/:page', component: LocationListComponent }, 
-  { path: 'episodes/:page', component: EpisodeListComponent },
+  { path: 'characters', component: CharacterListComponent },
+  { path: 'locations', component: LocationListComponent },
+  { path: 'episodes', component: EpisodeListComponent },
   { path: 'memorycards', component: MemoryCardsComponent },
-  { path: '**', component: PageNotFoundComponent },
-  { path: '', redirectTo: '/characters/1', pathMatch: 'full' }
+  { path: '**', component: PageNotFoundComponent }
 ]
 
 @NgModule({

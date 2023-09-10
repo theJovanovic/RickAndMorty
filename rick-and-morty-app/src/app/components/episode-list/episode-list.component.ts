@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
 import { selectEpisodes } from 'src/app/store/selectors/episode.selectors'
 import * as EpisodeActions from '../../store/actions/episode.actions'
-import { ActivatedRoute } from '@angular/router'
 import { Episode } from 'src/app/models/Episode'
 import { MatDialog } from '@angular/material/dialog'
 import { EpisodeDialogComponent } from '../episode-dialog/episode-dialog.component'
@@ -17,14 +16,11 @@ export class EpisodeListComponent implements OnInit {
   episodes$!: Observable<Episode[]>
   seasonColorMap: { [season: string]: string } = {}
 
-  constructor(private route: ActivatedRoute, private store: Store, private dialog: MatDialog) { }
+  constructor(private store: Store, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      const page = +params.get("page")!
-      this.store.dispatch(EpisodeActions.loadEpisodes({ page }))
-    })
-
+    const queryString = window.location.search.substring(1)
+    this.store.dispatch(EpisodeActions.loadEpisodes({ query: queryString }))
     this.episodes$ = this.store.select(selectEpisodes)
   }
 

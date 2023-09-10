@@ -21,7 +21,8 @@ import { CharacterDialogComponent } from './components/character-dialog/characte
 import { MatDialogModule } from '@angular/material/dialog';
 import { EpisodeDialogComponent } from './components/episode-dialog/episode-dialog.component';
 import { MemoryCardsComponent } from './components/memory-cards/memory-cards.component';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { CharacterFilterComponent } from './components/character-filter/character-filter.component'
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     EpisodeDialogComponent,
     MemoryCardsComponent,
     PageNotFoundComponent,
+    CharacterFilterComponent,
   ],
   imports: [
     BrowserModule,

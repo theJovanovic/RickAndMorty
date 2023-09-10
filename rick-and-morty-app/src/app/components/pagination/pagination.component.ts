@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { ActivatedRoute, Router } from '@angular/router'
-import { tap } from 'rxjs'
-import { RickMortyApiService } from 'src/app/services/rick-morty-api.service'
+import { Store } from '@ngrx/store'
+import { selectNextUrl, selectPrevUrl, selectTotalPages } from 'src/app/store/selectors/character.selectors'
 
 @Component({
   selector: 'app-navigation-buttons',
@@ -10,46 +9,31 @@ import { RickMortyApiService } from 'src/app/services/rick-morty-api.service'
 })
 export class PaginationComponent implements OnInit {
 
-  @Input() currentPage: number = 1
   @Input() type: 'characters' | 'locations' | 'episodes' | undefined
+  @Input() query: string = "page=1";
+  prevQuery: string | null = null
+  nextQuery: string | null = null
   totalPages: number = 1
 
-  constructor(private router: Router, private apiService: RickMortyApiService, private route: ActivatedRoute) { }
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
+    this.store.select(selectPrevUrl).subscribe(prevUrl => this.prevQuery = prevUrl)
+    this.store.select(selectNextUrl).subscribe(nextUrl => this.nextQuery = nextUrl)
+    this.store.select(selectTotalPages).subscribe(totalPages => this.totalPages = totalPages)
+  }
 
-    this.route.paramMap.subscribe(params => {
-      const pageFromUrl = Number(params.get('page'))
-      if (pageFromUrl) {
-        this.currentPage = pageFromUrl
-      }
-    })
-
-    switch (this.type) {
-      case 'characters':
-        this.apiService.getCharacterPages().pipe(
-          tap((result) => this.totalPages = result)
-        ).subscribe()
-        break
-      case 'locations':
-        this.apiService.getLocationPages().pipe(
-          tap((result) => this.totalPages = result)
-        ).subscribe()
-        break
-      case 'episodes':
-        this.apiService.getEpisodePages().pipe(
-          tap((result) => this.totalPages = result)
-        ).subscribe()
-        break
-      default:
-        break
+  navigateBack() {
+    if (this.prevQuery != null) {
+      const query = this.prevQuery.split('?')[1]
+      window.location.href = `/${this.type}/?${query}`
     }
   }
 
-  navigate(direction: number): void {
-    this.currentPage += direction
-    this.currentPage = Math.max(this.currentPage, 1)
-    this.currentPage = Math.min(this.currentPage, this.totalPages)
-    this.router.navigate([`/${this.type}`, this.currentPage])
+  navigateFront() {
+    if (this.nextQuery != null) {
+      const query = this.nextQuery.split('?')[1]
+      window.location.href = `/${this.type}/?${query}`
+    }
   }
 }

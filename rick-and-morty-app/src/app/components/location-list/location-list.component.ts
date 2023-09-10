@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
 import { selectLocations } from 'src/app/store/selectors/location.selectors'
 import * as LocationActions from '../../store/actions/location.actions'
-import { ActivatedRoute } from '@angular/router'
 import { Location } from 'src/app/models/Location'
 
 @Component({
@@ -15,14 +14,11 @@ export class LocationListComponent implements OnInit {
   locations$!: Observable<Location[]>
   typeColorMap: { [type: string]: string } = {}
 
-  constructor(private route: ActivatedRoute, private store: Store) { }
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      const page = +params.get("page")!
-      this.store.dispatch(LocationActions.loadLocations({ page }))
-    })
-
+    const queryString = window.location.search.substring(1)
+    this.store.dispatch(LocationActions.loadLocations({ query: queryString }))
     this.locations$ = this.store.select(selectLocations)
   }
 
@@ -40,7 +36,5 @@ export class LocationListComponent implements OnInit {
 
     return `rgba(${r}, ${g}, ${b}, ${opacity})`
   }
-
-
 
 }

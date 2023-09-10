@@ -17,3 +17,7 @@
     background-color: #ddd;
     color: black;
 }
+
+.navigation-link {
+    cursor: pointer;
+}

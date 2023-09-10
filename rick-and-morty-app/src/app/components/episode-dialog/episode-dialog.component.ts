@@ -19,7 +19,7 @@ export class EpisodeDialogComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: Episode, private store: Store) {
     this.episode = data
   }
-  
+
   ngOnInit(): void {
     const characterIds: string = this.extractCharacterIds(this.episode.characters)
     this.store.dispatch(CharacterActions.loadSpecificCharacters({ characterIds }))
@@ -29,6 +29,22 @@ export class EpisodeDialogComponent implements OnInit {
   private extractCharacterIds(characterUrls: string[]): string {
     const ids = characterUrls.map(url => url.split('/').pop());
     return ids.join(',');
+  }
+
+  getCircleShadowColor(status: string): string {
+    let boxShadow: string
+    switch (status) {
+      case "Dead":
+        boxShadow = `-4px 4px 8px rgba(255, 0, 0, 0.6)`
+        break
+      case "Alive":
+        boxShadow = `-4px 4px 8px rgba(0, 255, 0, 0.6)`
+        break
+      default:
+        boxShadow = `-4px 4px 8px rgba(0, 0, 0, 0.4)`
+        break
+    }
+    return boxShadow
   }
 
 }

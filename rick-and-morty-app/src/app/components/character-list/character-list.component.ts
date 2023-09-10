@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
-import { Observable, tap } from 'rxjs'
+import { Observable, switchMap, tap } from 'rxjs'
 import * as CharacterActions from '../../store/actions/character.actions'
 import { selectCharacters } from '../../store/selectors/character.selectors'
 import { ActivatedRoute } from '@angular/router'
@@ -17,16 +17,11 @@ export class CharacterListComponent implements OnInit {
 
   characters$!: Observable<Character[]>
 
-  constructor(private route: ActivatedRoute, private store: Store, private dialog: MatDialog) { }
+  constructor(private store: Store, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.route.paramMap.pipe(
-      tap((params) => {
-        const page = +params.get("page")!
-        this.store.dispatch(CharacterActions.loadCharacters({ page }))
-      })
-    ).subscribe()
-
+    const queryString = window.location.search.substring(1)
+    this.store.dispatch(CharacterActions.loadCharacters({ query: queryString }))
     this.characters$ = this.store.select(selectCharacters)
   }
 

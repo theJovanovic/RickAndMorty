@@ -1,0 +1,46 @@
+<div class="filter-section">
+    <button (click)="showFilters = !showFilters">Toggle Filters</button>
+    <form (submit)="onSubmit($event)" *ngIf="showFilters">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+        </div>
+
+        <div>
+            <label for="status">Status:</label>
+            <select id="status" name="status">
+                <option value="" selected>All</option>
+                <option value="alive">Alive</option>
+                <option value="dead">Dead</option>
+                <option value="unknown">Unknown</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="species">Species:</label>
+            <select id="species" name="species">
+                <option value="" selected>All</option>
+                <option value="Human">Human</option>
+                <option value="Alien">Alien</option>
+                <option value="Robot">Robot</option>
+                <option value="Animal">Animal</option>
+                <option value="Mythological">Mythological</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender">
+                <option value="" selected>All</option>
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+                <option value="genderless">Genderless</option>
+                <option value="unknown">Unknown</option>
+            </select>
+        </div>
+
+        <div>
+            <button type="submit">Filter</button>
+        </div>
+    </form>
+</div>

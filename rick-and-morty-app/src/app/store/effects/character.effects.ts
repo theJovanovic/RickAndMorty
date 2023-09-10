@@ -14,9 +14,9 @@ export class CharacterEffects {
 
   loadCharacters$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(CharacterActions.loadCharacters), // efekat je ove akcije
-      mergeMap((action) => this.apiService.getCharacters(action.page).pipe( // action nosi podatke o akciji
-        map((data) => CharacterActions.loadCharactersSuccess({ data: data.results as Character[] })), // data je odgovor poziva servisne funkcije
+      ofType(CharacterActions.loadCharacters),
+      mergeMap((action) => this.apiService.getCharacters(action.query).pipe(
+        map((data) => CharacterActions.loadCharactersSuccess({ data: data.results as Character[], prevUrl: data.info.prev, nextUrl: data.info.next, pages: data.info.pages })),
         catchError((error) => of(CharacterActions.loadCharactersFailure({ error })))
       ))
     )
@@ -24,9 +24,9 @@ export class CharacterEffects {
 
   loadSpecificCharacters$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(CharacterActions.loadSpecificCharacters), // efekat je ove akcije
-      mergeMap((action) => this.apiService.getSpecificCharacters(action.characterIds).pipe( // action nosi podatke o akciji
-        map((data) => CharacterActions.loadSpecificCharactersSuccess({ data: data })), // data je odgovor poziva servisne funkcije
+      ofType(CharacterActions.loadSpecificCharacters),
+      mergeMap((action) => this.apiService.getSpecificCharacters(action.characterIds).pipe(
+        map((data) => CharacterActions.loadSpecificCharactersSuccess({ data: data })),
         catchError((error) => of(CharacterActions.loadSpecificCharactersFailure({ error })))
       ))
     )

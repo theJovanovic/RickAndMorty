@@ -13,10 +13,10 @@ export class LocationEffects {
 
   loadLocations$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(LocationActions.loadLocations), // pristupa funkcijama iz actions fajlas
-      mergeMap((action) => this.apiService.getLocations(action.page).pipe(
-        map((data) => LocationActions.loadLocationsSuccess({ data: data.results as Location[] })), // pristupa funkcijama iz actions fajlas
-        catchError((error) => of(LocationActions.loadLocationsFailure({ error }))) // pristupa funkcijama iz actions fajlas
+      ofType(LocationActions.loadLocations),
+      mergeMap((action) => this.apiService.getLocations(action.query).pipe(
+        map((data) => LocationActions.loadLocationsSuccess({ data: data.results as Location[], prevUrl: data.info.prev, nextUrl: data.info.next, pages: data.info.pages })),
+        catchError((error) => of(LocationActions.loadLocationsFailure({ error })))
       ))
     )
   )
