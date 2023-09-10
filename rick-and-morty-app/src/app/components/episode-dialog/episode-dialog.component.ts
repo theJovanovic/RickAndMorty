@@ -35,13 +35,13 @@ export class EpisodeDialogComponent implements OnInit {
     let boxShadow: string
     switch (status) {
       case "Dead":
-        boxShadow = `-4px 4px 8px rgba(255, 0, 0, 0.6)`
+        boxShadow = `0 0 12px rgba(255, 0, 0, 0.6)`
         break
       case "Alive":
-        boxShadow = `-4px 4px 8px rgba(0, 255, 0, 0.6)`
+        boxShadow = `0 0 12px rgba(0, 255, 0, 0.6)`
         break
       default:
-        boxShadow = `-4px 4px 8px rgba(0, 0, 0, 0.4)`
+        boxShadow = `0 0 12px rgba(0, 0, 0, 0.4)`
         break
     }
     return boxShadow

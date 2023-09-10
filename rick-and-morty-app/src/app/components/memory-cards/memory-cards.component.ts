@@ -19,7 +19,7 @@ export class MemoryCardsComponent implements OnInit {
   private numCards: number = 6
   private characters$!: Observable<Character[]>
   private flipCardSubject = new Subject<Card>()
-  private flippedAllCardsSubject = new BehaviorSubject<Card[]>([])
+  private flippedCardsSubject = new BehaviorSubject<Card[]>([])
   private resetGameSubject = new Subject<void>();
 
   constructor(private store: Store) { }
@@ -49,19 +49,19 @@ export class MemoryCardsComponent implements OnInit {
     this.flipCardSubject.pipe(
       tap((card: Card) => {
         card.flipped = true;
-        const flipped = this.flippedAllCardsSubject.value;
-        this.flippedAllCardsSubject.next([...flipped, card])
+        const flipped = this.flippedCardsSubject.value;
+        this.flippedCardsSubject.next([...flipped, card])
       })
     ).subscribe()
 
     // handle match checking logic
-    this.flippedAllCardsSubject.pipe(
+    this.flippedCardsSubject.pipe(
       filter(cards => cards.length === 2),
       tap(_ => {
         this.numFlips += 1
         this.updateFlipCounter()
       }),
-      tap(() => this.canFlip = false),
+      tap(_ => this.canFlip = false),
       mergeMap((cards: Card[]) => {
         if (cards[0].characterId !== cards[1].characterId) {
           return of(cards).pipe(
@@ -75,13 +75,13 @@ export class MemoryCardsComponent implements OnInit {
           cards[0].flipped = false
           cards[1].flipped = false
         }
-        this.flippedAllCardsSubject.next([])
+        this.flippedCardsSubject.next([])
         this.canFlip = true
       })
     ).subscribe()
 
     // handle game reset logic when all cards are flipped
-    this.flippedAllCardsSubject.pipe(
+    this.flippedCardsSubject.pipe(
       filter(_ => this.cards.length > 0 && this.cards.every(card => card.flipped)),
       tap(() => this.resetGameSubject.next())
     ).subscribe()
