@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
-import { selectNextUrl, selectPrevUrl, selectTotalPages } from 'src/app/store/selectors/character.selectors'
+import { selectNextUrl as selectNextUrlCharacter, selectPrevUrl as selectPrevUrlCharacter, selectTotalPages as selectTotalPagesCharacter } from 'src/app/store/selectors/character.selectors'
+import { selectNextUrl as selectNextUrlEpisode, selectPrevUrl as selectPrevUrlEpisode, selectTotalPages as selectTotalPagesEpisode } from 'src/app/store/selectors/episode.selectors'
+import { selectNextUrl as selectNextUrlLocation, selectPrevUrl as selectPrevUrlLocation, selectTotalPages as selectTotalPagesLocation } from 'src/app/store/selectors/location.selectors'
 
 @Component({
   selector: 'app-navigation-buttons',
@@ -18,9 +20,29 @@ export class PaginationComponent implements OnInit {
   constructor(private store: Store) { }
 
   ngOnInit(): void {
-    this.store.select(selectPrevUrl).subscribe(prevUrl => this.prevQuery = prevUrl)
-    this.store.select(selectNextUrl).subscribe(nextUrl => this.nextQuery = nextUrl)
-    this.store.select(selectTotalPages).subscribe(totalPages => this.totalPages = totalPages)
+    switch (this.type) {
+      case 'characters':
+        this.store.select(selectPrevUrlCharacter).subscribe(prevUrl => this.prevQuery = prevUrl)
+        this.store.select(selectNextUrlCharacter).subscribe(nextUrl => this.nextQuery = nextUrl)
+        this.store.select(selectTotalPagesCharacter).subscribe(totalPages => this.totalPages = totalPages)
+        break;
+
+      case 'episodes':
+        this.store.select(selectPrevUrlEpisode).subscribe(prevUrl => this.prevQuery = prevUrl)
+        this.store.select(selectNextUrlEpisode).subscribe(nextUrl => this.nextQuery = nextUrl)
+        this.store.select(selectTotalPagesEpisode).subscribe(totalPages => this.totalPages = totalPages)
+        break;
+
+      case 'locations':
+        this.store.select(selectPrevUrlLocation).subscribe(prevUrl => this.prevQuery = prevUrl)
+        this.store.select(selectNextUrlLocation).subscribe(nextUrl => this.nextQuery = nextUrl)
+        this.store.select(selectTotalPagesLocation).subscribe(totalPages => this.totalPages = totalPages)
+        break;
+
+      default:
+        break;
+    }
+
   }
 
   navigateBack() {
