@@ -11,7 +11,7 @@ import { selectNextUrl as selectNextUrlLocation, selectPrevUrl as selectPrevUrlL
 })
 export class PaginationComponent implements OnInit {
 
-  @Input() type: 'characters' | 'locations' | 'episodes' | undefined
+  @Input() type: 'character' | 'location' | 'episode' | undefined
   @Input() query: string = "page=1";
   prevQuery: string | null = null
   nextQuery: string | null = null
@@ -21,19 +21,19 @@ export class PaginationComponent implements OnInit {
 
   ngOnInit(): void {
     switch (this.type) {
-      case 'characters':
+      case 'character':
         this.store.select(selectPrevUrlCharacter).subscribe(prevUrl => this.prevQuery = prevUrl)
         this.store.select(selectNextUrlCharacter).subscribe(nextUrl => this.nextQuery = nextUrl)
         this.store.select(selectTotalPagesCharacter).subscribe(totalPages => this.totalPages = totalPages)
         break;
 
-      case 'episodes':
+      case 'episode':
         this.store.select(selectPrevUrlEpisode).subscribe(prevUrl => this.prevQuery = prevUrl)
         this.store.select(selectNextUrlEpisode).subscribe(nextUrl => this.nextQuery = nextUrl)
         this.store.select(selectTotalPagesEpisode).subscribe(totalPages => this.totalPages = totalPages)
         break;
 
-      case 'locations':
+      case 'location':
         this.store.select(selectPrevUrlLocation).subscribe(prevUrl => this.prevQuery = prevUrl)
         this.store.select(selectNextUrlLocation).subscribe(nextUrl => this.nextQuery = nextUrl)
         this.store.select(selectTotalPagesLocation).subscribe(totalPages => this.totalPages = totalPages)

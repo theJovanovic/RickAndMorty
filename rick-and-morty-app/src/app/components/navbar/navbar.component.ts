@@ -7,14 +7,14 @@ import { Component } from '@angular/core'
 })
 export class NavbarComponent {
   navigateToCharacters() {
-    window.location.href = `/characters/?page=1`
+    window.location.href = `/character`
   }
 
   navigateToEpisodes() {
-    window.location.href = `/episodes/?page=1`
+    window.location.href = `/episode`
   }
 
   navigateToLocations() {
-    window.location.href = `/locations/?page=1`
+    window.location.href = `/location`
   }
 }

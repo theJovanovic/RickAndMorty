@@ -5,7 +5,7 @@ import { ApiResponse } from '../models/ApiResponse'
 import { Episode } from '../models/Episode'
 import { Character } from '../models/Character'
 
-export const API_URL = 'https://rickandmortyapi.com/api'
+export const API_URL = 'http://localhost:3000'
 
 @Injectable({
   providedIn: 'root'

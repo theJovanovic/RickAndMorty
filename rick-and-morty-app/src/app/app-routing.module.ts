@@ -7,10 +7,10 @@ import { MemoryCardsComponent } from './components/memory-cards/memory-cards.com
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
 
 const routes: Routes = [
-  { path: '', redirectTo: '/characters', pathMatch: 'full' },
-  { path: 'characters', component: CharacterListComponent },
-  { path: 'locations', component: LocationListComponent },
-  { path: 'episodes', component: EpisodeListComponent },
+  { path: '', redirectTo: '/character', pathMatch: 'full' },
+  { path: 'character', component: CharacterListComponent },
+  { path: 'location', component: LocationListComponent },
+  { path: 'episode', component: EpisodeListComponent },
   { path: 'memorycards', component: MemoryCardsComponent },
   { path: '**', component: PageNotFoundComponent }
 ]

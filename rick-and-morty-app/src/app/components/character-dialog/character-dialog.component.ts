@@ -29,6 +29,7 @@ export class CharacterDialogComponent implements OnInit {
 
   getBadgeColor(episodeId: number): string {
     const episodeUrl = `${API_URL}/episode/${episodeId}`
+    console.log(this.character.episode)
     if (this.character.episode.includes(episodeUrl)) {
       return 'rgba(0, 255, 0, 1)'
     }
