@@ -23,7 +23,7 @@ export class CharacterFilterComponent {
     }
 
     const query = this.constructQueryUrl(filter)
-    window.location.href = `/characters/?page=1&${query}`
+    window.location.href = `/character/?page=1&${query}`
   }
 
 
