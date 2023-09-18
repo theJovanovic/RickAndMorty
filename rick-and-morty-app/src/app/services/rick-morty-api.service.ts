@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core'
-import { HttpClient } from '@angular/common/http'
-import { Observable, forkJoin, map, mergeMap } from 'rxjs'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { Observable, forkJoin, map, mergeMap, tap } from 'rxjs'
 import { ApiResponse } from '../models/ApiResponse'
 import { Episode } from '../models/Episode'
 import { Character } from '../models/Character'
+import { User } from '../models/User'
+import { LoginUser } from '../models/LoginUser'
 
 export const API_URL = 'http://localhost:3000'
 
@@ -58,4 +60,23 @@ export class RickMortyApiService {
       mergeMap(responses => [[].concat(...responses.map(res => res.results))])
     )
   }
+
+  register(user: User) {
+    return this.http.post<any>(`${API_URL}/user/register`, user,
+    {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    })
+  }
+
+  login(user: LoginUser) {
+    return this.http.post<any>(`${API_URL}/auth/login`, user,
+    {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    })
+  }
+
 }

@@ -5,6 +5,8 @@ import { LocationListComponent } from './components/location-list/location-list.
 import { EpisodeListComponent } from './components/episode-list/episode-list.component'
 import { MemoryCardsComponent } from './components/memory-cards/memory-cards.component'
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
+import { RegistrationComponent } from './components/registration/registration.component'
+import { LoginComponent } from './components/login/login.component'
 
 const routes: Routes = [
   { path: '', redirectTo: '/character', pathMatch: 'full' },
@@ -12,6 +14,8 @@ const routes: Routes = [
   { path: 'location', component: LocationListComponent },
   { path: 'episode', component: EpisodeListComponent },
   { path: 'memorycards', component: MemoryCardsComponent },
+  { path: 'registration', component: RegistrationComponent },
+  { path: 'login', component: LoginComponent },
   { path: '**', component: PageNotFoundComponent }
 ]
 

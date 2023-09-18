@@ -10,6 +10,7 @@ import { CharacterEffects } from './store/effects/character.effects'
 import * as fromCharacter from './store/reducers/character.reducer'
 import * as fromLocation from './store/reducers/location.reducer'
 import * as fromEpisode from './store/reducers/episode.reducer'
+import * as fromUser from './store/reducers/user.reducer'
 import { NavbarComponent } from './components/navbar/navbar.component'
 import { LocationListComponent } from './components/location-list/location-list.component'
 import { EpisodeListComponent } from './components/episode-list/episode-list.component'
@@ -23,6 +24,10 @@ import { EpisodeDialogComponent } from './components/episode-dialog/episode-dial
 import { MemoryCardsComponent } from './components/memory-cards/memory-cards.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { CharacterFilterComponent } from './components/character-filter/character-filter.component'
+import { UserEffects } from './store/effects/user.effects';
+import { RegistrationComponent } from './components/registration/registration.component'
+import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './components/login/login.component'
 
 @NgModule({
   declarations: [
@@ -37,8 +42,11 @@ import { CharacterFilterComponent } from './components/character-filter/characte
     MemoryCardsComponent,
     PageNotFoundComponent,
     CharacterFilterComponent,
+    RegistrationComponent,
+    LoginComponent,
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -48,12 +56,14 @@ import { CharacterFilterComponent } from './components/character-filter/characte
       {
         character: fromCharacter.reducer,
         location: fromLocation.reducer,
-        episode: fromEpisode.reducer
+        episode: fromEpisode.reducer,
+        user: fromUser.reducer
       }),
     EffectsModule.forRoot([
       CharacterEffects,
       LocationEffects,
-      EpisodeEffects])
+      EpisodeEffects,
+      UserEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]
