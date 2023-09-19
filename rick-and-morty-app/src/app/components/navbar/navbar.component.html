@@ -1,8 +1,9 @@
 <nav class="navbar">
-    <a class="navigation-link" (click)="navigateToCharacters()">Characters</a>
-    <a class="navigation-link" (click)="navigateToEpisodes()">Episodes</a>
-    <a class="navigation-link" (click)="navigateToLocations()">Locations</a>
-    <a class="navigation-link" routerLink="/memorycards">Memory cards</a>
-    <a class="navigation-link" routerLink="/registration">Registration</a>
-    <a class="navigation-link" routerLink="/login">Login</a>
+    <a *ngIf="(isTokenAvailable$ | async)" class="navigation-link" routerLink="/character">Characters</a>
+    <a *ngIf="(isTokenAvailable$ | async)" class="navigation-link" routerLink="/episode">Episodes</a>
+    <a *ngIf="(isTokenAvailable$ | async)" class="navigation-link" routerLink="/location">Locations</a>
+    <a *ngIf="(isTokenAvailable$ | async)" class="navigation-link" routerLink="/memorycards">Memory cards</a>
+    <a *ngIf="!(isTokenAvailable$ | async)" class="navigation-link push-right" routerLink="/registration">Registration</a>
+    <a *ngIf="!(isTokenAvailable$ | async)" class="navigation-link" routerLink="/login">Login</a>
+    <a *ngIf="(isTokenAvailable$ | async)" class="navigation-link push-right" (click)="logout()">Log out</a>
 </nav>

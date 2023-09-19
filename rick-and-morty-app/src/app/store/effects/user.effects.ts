@@ -18,8 +18,10 @@ export class UserEffects {
             ofType(userActions.registerUser),
             switchMap(action =>
                 this.authService.register(action.user).pipe(
-                    map(token => token.token),
-                    map(token => userActions.registerUserSuccess({ token })),
+                    map(response => {
+                        const { id, firstname, lastname, email, token } = response;
+                        return userActions.registerUserSuccess({ id, firstname, lastname, email, token });
+                    }),
                     catchError(error => [userActions.registerUserFailure({ error })])
                 )
             )
@@ -31,9 +33,23 @@ export class UserEffects {
             ofType(userActions.loginUser),
             switchMap(action =>
                 this.authService.login(action.user).pipe(
-                    map(token => token.token),
-                    map(token => userActions.loginUserSuccess({ token })),
+                    map(response => {
+                        const { id, firstname, lastname, email, token } = response;
+                        return userActions.loginUserSuccess({ id, firstname, lastname, email, token });
+                    }),
                     catchError(error => [userActions.loginUserFailure({ error })])
+                )
+            )
+        )
+    );
+
+    logoutUser$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(userActions.logoutUser),
+            switchMap(action =>
+                this.authService.logout(action.id).pipe(
+                    map(_ => userActions.logoutUserSuccess()),
+                    catchError(error => [userActions.logoutUserFailure({ error })])
                 )
             )
         )
