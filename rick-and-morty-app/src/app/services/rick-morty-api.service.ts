@@ -101,7 +101,7 @@ export class RickMortyApiService {
   }
 
   logout(id: number) {
-    return this.http.post<any>(`${API_URL}/user/logout/${id}`,
+    return this.http.get<any>(`${API_URL}/user/logout/${id}`,
       this.header)
   }
 

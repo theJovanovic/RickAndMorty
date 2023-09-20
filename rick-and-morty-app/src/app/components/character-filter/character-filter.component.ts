@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import * as CharacterActions from '../../store/actions/character.actions'
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-character-filter',
@@ -8,6 +10,8 @@ import { Component } from '@angular/core';
 export class CharacterFilterComponent {
 
   showFilters: boolean = false
+
+  constructor(private store: Store) { }
 
   onSubmit(event: Event) {
     event.preventDefault()
@@ -23,7 +27,8 @@ export class CharacterFilterComponent {
     }
 
     const query = this.constructQueryUrl(filter)
-    window.location.href = `/character/?page=1&${query}`
+    // window.location.href = `/character/?page=1&${query}`
+    this.store.dispatch(CharacterActions.loadCharacters({ query: `page=1&${query}` }))
   }
 
 

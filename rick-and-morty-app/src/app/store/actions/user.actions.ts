@@ -10,6 +10,10 @@ export const loginUser = createAction('[User] Login User', props<{ user: LoginUs
 export const loginUserSuccess = createAction('[User] Login User Success', props<{ id: number, firstname: string, lastname: string, email: string, token: string }>());
 export const loginUserFailure = createAction('[User] Login User Failure', props<{ error: Error }>());
 
-export const logoutUser = createAction('[User] Logi out User', props<{ id: number }>());
+export const logoutUser = createAction('[User] Log out User', props<{ id: number }>());
 export const logoutUserSuccess = createAction('[User] Login out User Success');
 export const logoutUserFailure = createAction('[User] Login out User Failure', props<{ error: Error }>());
+
+export const setToken = createAction('[User] Set token User', props<{ token: string }>());
+export const setTokenSuccess = createAction('[User] Set token User Success', props<{ token: string }>());
+export const setTokenFailure = createAction('[User] Set token User Failure', props<{ error: Error }>());

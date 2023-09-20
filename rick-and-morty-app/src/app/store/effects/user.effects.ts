@@ -55,5 +55,13 @@ export class UserEffects {
         )
     );
 
+    setToken$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(userActions.setToken),
+            map(action => userActions.setTokenSuccess({ token: action.token }))
+        )
+    );
+
+
 
 }

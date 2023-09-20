@@ -22,11 +22,11 @@ export class RegistrationComponent implements OnInit {
   constructor(private store: Store, private router: Router) { }
 
   ngOnInit(): void {
-    this.registerSubscription = this.store.select(selectToken).subscribe(token => {
-      if (token) {
-        this.router.navigate(['/character']);
-      }
-    });
+    // this.registerSubscription = this.store.select(selectToken).subscribe(token => {
+    //   if (token) {
+    //     this.router.navigate(['/character']);
+    //   }
+    // });
   }
 
   onSubmit(event: Event) {

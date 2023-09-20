@@ -78,5 +78,16 @@ export const reducer = createReducer(
     lastname: null,
     email: null,
     token: null
+  })),
+
+  on(UserActions.setToken, (state) => ({
+    ...state,
+    loading: true
+  })),
+
+  on(UserActions.setTokenSuccess, (state, { token }) => ({
+    ...state,
+    loading: false,
+    token: token
   }))
 );

@@ -9,7 +9,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { LoginComponent } from './components/login/login.component'
 
 const routes: Routes = [
-  { path: '', redirectTo: '/character', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'character', component: CharacterListComponent },
   { path: 'location', component: LocationListComponent },
   { path: 'episode', component: EpisodeListComponent },

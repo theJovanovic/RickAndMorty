@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store'
 import { selectNextUrl as selectNextUrlCharacter, selectPrevUrl as selectPrevUrlCharacter, selectTotalPages as selectTotalPagesCharacter } from 'src/app/store/selectors/character.selectors'
 import { selectNextUrl as selectNextUrlEpisode, selectPrevUrl as selectPrevUrlEpisode, selectTotalPages as selectTotalPagesEpisode } from 'src/app/store/selectors/episode.selectors'
 import { selectNextUrl as selectNextUrlLocation, selectPrevUrl as selectPrevUrlLocation, selectTotalPages as selectTotalPagesLocation } from 'src/app/store/selectors/location.selectors'
+import * as CharacterActions from '../../store/actions/character.actions'
 
 @Component({
   selector: 'app-navigation-buttons',
@@ -48,14 +49,16 @@ export class PaginationComponent implements OnInit {
   navigateBack() {
     if (this.prevQuery != null) {
       const query = this.prevQuery.split('?')[1]
-      window.location.href = `/${this.type}/?${query}`
+      this.store.dispatch(CharacterActions.loadCharacters({ query: query }))
+      window.scroll(0, 0);
     }
   }
 
   navigateFront() {
     if (this.nextQuery != null) {
       const query = this.nextQuery.split('?')[1]
-      window.location.href = `/${this.type}/?${query}`
+      this.store.dispatch(CharacterActions.loadCharacters({ query: query }))
+      window.scroll(0, 0);
     }
   }
 }
