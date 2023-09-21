@@ -25,7 +25,7 @@ export class EpisodeListComponent implements OnInit {
   }
 
   onEpisodeClick(episode: Episode): void {
-    this.dialog.open(EpisodeDialogComponent, { data: episode })
+    this.dialog.open(EpisodeDialogComponent, { data: episode.id })
   }
 
   getCardColor(episode: string): string {

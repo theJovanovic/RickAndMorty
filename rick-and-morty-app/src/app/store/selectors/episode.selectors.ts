@@ -8,18 +8,22 @@ export const selectEpisodes = createSelector(
 	(state: EpisodeState) => state.episodes
 )
 
+export const selectEpisode = createSelector(
+	selectEpisodeState,
+	(state: EpisodeState) => state.singleEpisode
+)
+
 export const selectPrevUrl = createSelector(
 	selectEpisodeState,
 	(state: EpisodeState) => state.prevUrl
-  )
-  
-  export const selectNextUrl = createSelector(
+)
+
+export const selectNextUrl = createSelector(
 	selectEpisodeState,
 	(state: EpisodeState) => state.nextUrl
-  )
-  
-  export const selectTotalPages = createSelector(
+)
+
+export const selectTotalPages = createSelector(
 	selectEpisodeState,
 	(state: EpisodeState) => state.pages
-  )
-  
+)

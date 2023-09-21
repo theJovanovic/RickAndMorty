@@ -58,6 +58,10 @@ export class RickMortyApiService {
     return this.http.get(`${API_URL}/episode/?${query}`,
       this.header) as Observable<ApiResponse>
   }
+  getEpisode(id: number): Observable<Episode[]> {
+    return this.http.get(`${API_URL}/episode/${id}`,
+      this.header) as Observable<Episode[]>
+  }
   getEpisodePages(): Observable<number> {
     return this.http.get<ApiResponse>(`${API_URL}/episode`,
       this.header).pipe(
@@ -80,6 +84,12 @@ export class RickMortyApiService {
         }),
         mergeMap(responses => [[].concat(...responses.map(res => res.results))])
       )
+  }
+  likeEpisode(id: number, user_id: number) {
+    return this.http.put<any>(`${API_URL}/episode/like/${id}/user/${user_id}`, this.header) as Observable<Episode>
+  }
+  dislikeEpisode(id: number, user_id: number) {
+    return this.http.put<any>(`${API_URL}/episode/dislike/${id}/user/${user_id}`, this.header) as Observable<Episode>
   }
 
   register(user: User) {

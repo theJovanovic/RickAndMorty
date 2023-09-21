@@ -1,11 +1,14 @@
-import { Component, Inject, OnInit } from '@angular/core'
+import { Component, Inject, OnInit, ChangeDetectorRef } from '@angular/core'
 import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { Store } from '@ngrx/store'
 import { Character } from 'src/app/models/Character'
 import { Episode } from 'src/app/models/Episode'
 import * as CharacterActions from "../../store/actions/character.actions"
+import * as EpisodeActions from "../../store/actions/episode.actions"
 import { selectCharacters } from 'src/app/store/selectors/character.selectors'
 import { Observable } from 'rxjs'
+import { selectEpisode } from 'src/app/store/selectors/episode.selectors'
+import { selectId } from 'src/app/store/selectors/user.selectors'
 
 @Component({
   selector: 'app-episode-dialog',
@@ -13,17 +16,29 @@ import { Observable } from 'rxjs'
   styleUrls: ['./episode-dialog.component.css']
 })
 export class EpisodeDialogComponent implements OnInit {
-  episode: Episode
+  episode_id: number
   charactersInEpisode$!: Observable<Character[]>;
+  episode$!: Observable<Episode | null>
+  id: number | null = null
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Episode, private store: Store) {
-    this.episode = data
+  constructor(@Inject(MAT_DIALOG_DATA) public data: number, private store: Store) {
+    this.episode_id = data
   }
 
   ngOnInit(): void {
-    const characterIds: string = this.extractCharacterIds(this.episode.characters)
-    this.store.dispatch(CharacterActions.loadSpecificCharacters({ characterIds }))
-    this.charactersInEpisode$ = this.store.select(selectCharacters)
+    this.store.select(selectId).subscribe(id => this.id = id)
+    this.store.dispatch(EpisodeActions.loadEpisode({ id: this.episode_id }))
+    this.episode$ = this.store.select(selectEpisode)
+    this.episode$.subscribe(episode => {
+      console.log(episode);
+      if (episode != null) {
+        console.log(episode.characters)
+        const characterIds: string = this.extractCharacterIds(episode.characters)
+        this.store.dispatch(CharacterActions.loadSpecificCharacters({ characterIds }))
+        this.charactersInEpisode$ = this.store.select(selectCharacters)
+      }
+
+    })
   }
 
   private extractCharacterIds(characterUrls: string[]): string {
@@ -45,6 +60,18 @@ export class EpisodeDialogComponent implements OnInit {
         break
     }
     return boxShadow
+  }
+
+  like() {
+    if (this.id) {
+      this.store.dispatch(EpisodeActions.likeEpisode({ id: this.episode_id, user_id: this.id }))
+    }
+  }
+
+  dislike() {
+    if (this.id) {
+      this.store.dispatch(EpisodeActions.dislikeEpisode({ id: this.episode_id, user_id: this.id }))
+    }
   }
 
 }

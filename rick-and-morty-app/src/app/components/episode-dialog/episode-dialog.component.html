@@ -1,8 +1,20 @@
-<div class="episode-card">
+<div *ngIf="episode$ | async as episode" class="episode-card">
     <h1 class="episode-title">{{ episode.name }}</h1>
     <div class="episode-meta">
         <h3 class="episode-number">{{ episode.episode }}</h3>
         <h3 class="episode-date">{{ episode.air_date }}</h3>
+    </div>
+    <div class="reaction-buttons">
+        <button *ngIf="id" class="dislike-button" (click)="dislike()"
+            [ngStyle]="{'opacity': episode.dislike_users_id.includes(this.id) ? '1' : '0.4'}">
+            <i class="fas fa-thumbs-down"></i> Dislike
+            <span class="dislike-count">{{ episode.dislikes }}</span>
+        </button>
+        <button *ngIf="id" class="like-button" (click)="like()"
+            [ngStyle]="{'opacity': episode.like_users_id.includes(this.id) ? '1' : '0.4'}">
+            <i class="fas fa-thumbs-up"></i> Like
+            <span class="like-count">{{ episode.likes }}</span>
+        </button>
     </div>
     <div class="characters-list" *ngIf="(charactersInEpisode$ | async) as charactersInEpisode">
         <div *ngFor="let character of charactersInEpisode" class="character-item">

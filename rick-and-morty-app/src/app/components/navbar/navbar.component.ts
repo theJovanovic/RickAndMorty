@@ -26,9 +26,9 @@ export class NavbarComponent {
     this.store.select(selectToken).subscribe(token => this.token = token)
 
     this.logoutSubscription = this.store.select(selectToken).subscribe(token => {
-      if (!token) {
-        this.router.navigate(['/login']);
-      }
+      // if (!token) {
+      //   this.router.navigate(['/login']);
+      // }
     });
   }
 

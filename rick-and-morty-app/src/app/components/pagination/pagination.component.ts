@@ -4,6 +4,8 @@ import { selectNextUrl as selectNextUrlCharacter, selectPrevUrl as selectPrevUrl
 import { selectNextUrl as selectNextUrlEpisode, selectPrevUrl as selectPrevUrlEpisode, selectTotalPages as selectTotalPagesEpisode } from 'src/app/store/selectors/episode.selectors'
 import { selectNextUrl as selectNextUrlLocation, selectPrevUrl as selectPrevUrlLocation, selectTotalPages as selectTotalPagesLocation } from 'src/app/store/selectors/location.selectors'
 import * as CharacterActions from '../../store/actions/character.actions'
+import * as EpisodeActions from '../../store/actions/episode.actions'
+import * as LocationActions from '../../store/actions/location.actions'
 
 @Component({
   selector: 'app-navigation-buttons',
@@ -49,7 +51,22 @@ export class PaginationComponent implements OnInit {
   navigateBack() {
     if (this.prevQuery != null) {
       const query = this.prevQuery.split('?')[1]
-      this.store.dispatch(CharacterActions.loadCharacters({ query: query }))
+      switch (this.type) {
+        case 'character':
+          this.store.dispatch(CharacterActions.loadCharacters({ query: query }))
+          break;
+
+        case 'episode':
+          this.store.dispatch(EpisodeActions.loadEpisodes({ query: query }))
+          break;
+
+        case 'location':
+          this.store.dispatch(LocationActions.loadLocations({ query: query }))
+          break;
+
+        default:
+          break;
+      }
       window.scroll(0, 0);
     }
   }
@@ -57,7 +74,22 @@ export class PaginationComponent implements OnInit {
   navigateFront() {
     if (this.nextQuery != null) {
       const query = this.nextQuery.split('?')[1]
-      this.store.dispatch(CharacterActions.loadCharacters({ query: query }))
+      switch (this.type) {
+        case 'character':
+          this.store.dispatch(CharacterActions.loadCharacters({ query: query }))
+          break;
+
+        case 'episode':
+          this.store.dispatch(EpisodeActions.loadEpisodes({ query: query }))
+          break;
+
+        case 'location':
+          this.store.dispatch(LocationActions.loadLocations({ query: query }))
+          break;
+
+        default:
+          break;
+      }
       window.scroll(0, 0);
     }
   }
