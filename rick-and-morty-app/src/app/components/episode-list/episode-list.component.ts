@@ -6,6 +6,8 @@ import * as EpisodeActions from '../../store/actions/episode.actions'
 import { Episode } from 'src/app/models/Episode'
 import { MatDialog } from '@angular/material/dialog'
 import { EpisodeDialogComponent } from '../episode-dialog/episode-dialog.component'
+import { selectId } from 'src/app/store/selectors/user.selectors'
+import { SuggestionsDialogComponent } from '../suggestions-dialog/suggestions-dialog.component'
 
 @Component({
   selector: 'app-episode-list',
@@ -15,6 +17,7 @@ import { EpisodeDialogComponent } from '../episode-dialog/episode-dialog.compone
 export class EpisodeListComponent implements OnInit {
   episodes$!: Observable<Episode[]>
   seasonColorMap: { [season: string]: string } = {}
+  id: number | null = null
 
   constructor(private store: Store, private dialog: MatDialog) { }
 
@@ -22,6 +25,7 @@ export class EpisodeListComponent implements OnInit {
     const queryString = window.location.search.substring(1)
     this.store.dispatch(EpisodeActions.loadEpisodes({ query: queryString }))
     this.episodes$ = this.store.select(selectEpisodes)
+    this.store.select(selectId).subscribe(id => this.id = id)
   }
 
   onEpisodeClick(episode: Episode): void {
@@ -40,10 +44,11 @@ export class EpisodeListComponent implements OnInit {
     const r = Math.floor(Math.random() * 256)
     const g = Math.floor(Math.random() * 256)
     const b = Math.floor(Math.random() * 256)
-
     return `rgba(${r}, ${g}, ${b}, ${opacity})`
   }
 
-
+  openSuggestions() {
+    this.dialog.open(SuggestionsDialogComponent)
+  }
 
 }

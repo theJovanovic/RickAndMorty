@@ -1,0 +1,39 @@
+.episode-suggestions-dialog {
+    display: flex;
+    background-color: whitesmoke;
+    color: #e6e6e6;
+    width: 1200px;
+    height: 700px;
+    border: 3px solid black;
+}
+
+.left-panel {
+    flex: 4;
+    overflow-y: scroll;
+    background-color: #282828;
+    width: 300px;
+}
+
+.left-panel ul li {
+    cursor: pointer;
+    padding: 15px;
+    border-bottom: 1px solid #39ff14;
+    transition: background-color 0.5s;
+}
+
+.left-panel ul li:hover {
+    background-color: #39ff14;
+    color: #1f1f1f;
+}
+
+.right-panel {
+    flex: 6;
+    width: 100%;
+    padding: 20px;
+    background-color: #333333;
+}
+
+h2,
+p strong {
+    color: #ffdc00;
+}

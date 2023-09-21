@@ -27,7 +27,8 @@ import { CharacterFilterComponent } from './components/character-filter/characte
 import { UserEffects } from './store/effects/user.effects';
 import { RegistrationComponent } from './components/registration/registration.component'
 import { FormsModule } from '@angular/forms';
-import { LoginComponent } from './components/login/login.component'
+import { LoginComponent } from './components/login/login.component';
+import { SuggestionsDialogComponent } from './components/suggestions-dialog/suggestions-dialog.component'
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { LoginComponent } from './components/login/login.component'
     CharacterFilterComponent,
     RegistrationComponent,
     LoginComponent,
+    SuggestionsDialogComponent,
   ],
   imports: [
     FormsModule,

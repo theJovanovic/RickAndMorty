@@ -1,9 +1,27 @@
+<button class="suggestions-button" (click)="openSuggestions()">Episode Suggestions</button>
+
 <div *ngIf="episodes$ | async as episodes" class="episode-grid">
     <div *ngFor="let episode of episodes" class="episode-card" (click)="onEpisodeClick(episode)"
         [ngStyle]="{'background-color': getCardColor(episode.episode)}">
+
         <h3>{{ episode.name }}</h3>
         <p><strong>Episode:</strong> {{ episode.episode }}</p>
         <p><strong>Air date:</strong> {{ episode.air_date }}</p>
+
+        <div class="reactions">
+            Me:
+            <i *ngIf="id && episode.like_users_id?.includes(id) && !episode.dislike_users_id?.includes(id)"
+                class="fas fa-thumbs-up icon like"></i>
+            <i *ngIf="id && episode.dislike_users_id?.includes(id) && !episode.like_users_id?.includes(id)"
+                class="fas fa-thumbs-down icon dislike"></i>
+            <i *ngIf="id && episode.dislike_users_id?.includes(id) && episode.like_users_id?.includes(id)"
+                class="fas fa-balance-scale icon balance"></i>
+            Other people:
+            <i *ngIf="id && episode.likes > episode.dislikes" class="fas fa-thumbs-up icon like"></i>
+            <i *ngIf="id && episode.likes < episode.dislikes" class="fas fa-thumbs-down icon dislike"></i>
+            <i *ngIf="id && episode.likes === episode.dislikes" class="fas fa-balance-scale icon balance"></i>
+        </div>
+
     </div>
 </div>
 <app-navigation-buttons type="episode"></app-navigation-buttons>

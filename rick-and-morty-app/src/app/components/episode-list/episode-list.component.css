@@ -14,6 +14,9 @@
     transition: transform 0.3s;
     cursor: pointer;
     width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .episode-card:hover {
@@ -27,6 +30,50 @@ h3 {
 }
 
 p {
+    margin-top: 0;
     margin-bottom: 10px;
     font-size: 1em;
+}
+
+.icon {
+    bottom: 20px;
+    right: 20px;
+    transform: scale(1.5);
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+.like {
+    color: green
+}
+
+.dislike {
+    color: red
+}
+
+.balance {
+    color: rgb(80, 80, 80)
+}
+
+.suggestions-button {
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    padding: 10px 20px;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 15px;
+    margin-left: 53px;
+}
+
+.suggestions-button:hover {
+    background: #444;
+    transform: scale(1.05)
+}
+
+
+.reactions {
+    align-self: flex-end;
 }

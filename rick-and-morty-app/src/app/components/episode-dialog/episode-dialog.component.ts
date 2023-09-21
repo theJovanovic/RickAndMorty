@@ -30,14 +30,12 @@ export class EpisodeDialogComponent implements OnInit {
     this.store.dispatch(EpisodeActions.loadEpisode({ id: this.episode_id }))
     this.episode$ = this.store.select(selectEpisode)
     this.episode$.subscribe(episode => {
-      console.log(episode);
       if (episode != null) {
         console.log(episode.characters)
         const characterIds: string = this.extractCharacterIds(episode.characters)
         this.store.dispatch(CharacterActions.loadSpecificCharacters({ characterIds }))
         this.charactersInEpisode$ = this.store.select(selectCharacters)
       }
-
     })
   }
 
