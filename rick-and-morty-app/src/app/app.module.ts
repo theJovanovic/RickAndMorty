@@ -11,6 +11,7 @@ import * as fromCharacter from './store/reducers/character.reducer'
 import * as fromLocation from './store/reducers/location.reducer'
 import * as fromEpisode from './store/reducers/episode.reducer'
 import * as fromUser from './store/reducers/user.reducer'
+import * as fromSuggestions from './store/reducers/suggestion.reducer'
 import { NavbarComponent } from './components/navbar/navbar.component'
 import { LocationListComponent } from './components/location-list/location-list.component'
 import { EpisodeListComponent } from './components/episode-list/episode-list.component'
@@ -26,9 +27,10 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { CharacterFilterComponent } from './components/character-filter/character-filter.component'
 import { UserEffects } from './store/effects/user.effects';
 import { RegistrationComponent } from './components/registration/registration.component'
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { SuggestionsDialogComponent } from './components/suggestions-dialog/suggestions-dialog.component'
+import { SuggestionEffects } from './store/effects/suggestion.effects'
 
 @NgModule({
   declarations: [
@@ -48,6 +50,7 @@ import { SuggestionsDialogComponent } from './components/suggestions-dialog/sugg
     SuggestionsDialogComponent,
   ],
   imports: [
+    ReactiveFormsModule,
     FormsModule,
     BrowserModule,
     AppRoutingModule,
@@ -59,13 +62,15 @@ import { SuggestionsDialogComponent } from './components/suggestions-dialog/sugg
         character: fromCharacter.reducer,
         location: fromLocation.reducer,
         episode: fromEpisode.reducer,
-        user: fromUser.reducer
+        user: fromUser.reducer,
+        suggestion: fromSuggestions.reducer
       }),
     EffectsModule.forRoot([
       CharacterEffects,
       LocationEffects,
       EpisodeEffects,
-      UserEffects])
+      UserEffects,
+      SuggestionEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -8,6 +8,7 @@ import { User } from '../models/User'
 import { LoginUser } from '../models/LoginUser'
 import { Store } from '@ngrx/store'
 import { selectToken } from '../store/selectors/user.selectors'
+import { Suggestion } from '../models/Suggestion'
 
 export const API_URL = 'http://localhost:3000'
 
@@ -112,6 +113,15 @@ export class RickMortyApiService {
 
   logout(id: number) {
     return this.http.get<any>(`${API_URL}/user/logout/${id}`,
+      this.header)
+  }
+
+  getAllSuggestions() {
+    return this.http.get<any>(`${API_URL}/suggestion`,
+      this.header)
+  }
+  sendSuggestion(suggestion: Suggestion) {
+    return this.http.post<any>(`${API_URL}/suggestion/add`, suggestion,
       this.header)
   }
 

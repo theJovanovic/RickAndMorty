@@ -1,15 +1,32 @@
 <div class="episode-suggestions-dialog">
+    <div *ngIf="showForm" class="form-container">
+        <h1 class="form-header">Add new episode suggestion</h1>
+        <form [formGroup]="suggestionForm" (ngSubmit)="onSubmit()">
+            <label>
+                Title:
+                <input formControlName="title" />
+            </label>
+            <label>
+                Plot:
+                <textarea formControlName="plot"></textarea>
+            </label>
+            <button type="submit" [disabled]="!suggestionForm.valid">Submit</button>
+        </form>
+    </div>
+
+    <div class="left-panel">
+        <button (click)="toggleForm()">New Suggestion</button>
+        <ul *ngIf="(suggestions$ | async) as suggestions">
+            <li *ngFor="let suggestion of suggestions" (click)="selectSuggestion(suggestion)">
+                {{suggestion.title}}
+            </li>
+        </ul>
+    </div>
+
     <div class="right-panel" *ngIf="selectedSuggestion">
-        <h2>{{selectedSuggestion.name}}</h2>
+        <h2>{{selectedSuggestion.title}}</h2>
         <p><strong>Creator:</strong> {{selectedSuggestion.creator}}</p>
         <p><strong>Date of Creating:</strong> {{selectedSuggestion.date}}</p>
         <p><strong>Plot Explanation:</strong> {{selectedSuggestion.plot}}</p>
-    </div>
-    <div class="left-panel">
-        <ul>
-            <li *ngFor="let suggestion of suggestions" (click)="selectSuggestion(suggestion)">
-                {{suggestion.name}}
-            </li>
-        </ul>
     </div>
 </div>

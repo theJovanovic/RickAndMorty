@@ -17,3 +17,4 @@ export const logoutUserFailure = createAction('[User] Login out User Failure', p
 export const setToken = createAction('[User] Set token User', props<{ token: string }>());
 export const setTokenSuccess = createAction('[User] Set token User Success', props<{ token: string }>());
 export const setTokenFailure = createAction('[User] Set token User Failure', props<{ error: Error }>());
+

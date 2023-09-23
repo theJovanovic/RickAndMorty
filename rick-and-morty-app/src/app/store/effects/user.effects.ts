@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { EMPTY } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 import * as userActions from '../actions/user.actions'
 import { RickMortyApiService } from 'src/app/services/rick-morty-api.service';
@@ -22,7 +22,7 @@ export class UserEffects {
                         const { id, firstname, lastname, email, token } = response;
                         return userActions.registerUserSuccess({ id, firstname, lastname, email, token });
                     }),
-                    catchError(error => [userActions.registerUserFailure({ error })])
+                    catchError(error => of(userActions.registerUserFailure({ error })))
                 )
             )
         )
@@ -37,7 +37,7 @@ export class UserEffects {
                         const { id, firstname, lastname, email, token } = response;
                         return userActions.loginUserSuccess({ id, firstname, lastname, email, token });
                     }),
-                    catchError(error => [userActions.loginUserFailure({ error })])
+                    catchError(error => of(userActions.loginUserFailure({ error })))
                 )
             )
         )
@@ -49,7 +49,7 @@ export class UserEffects {
             switchMap(action =>
                 this.authService.logout(action.id).pipe(
                     map(_ => userActions.logoutUserSuccess()),
-                    catchError(error => [userActions.logoutUserFailure({ error })])
+                    catchError(error => of(userActions.logoutUserFailure({ error })))
                 )
             )
         )
@@ -62,6 +62,6 @@ export class UserEffects {
         )
     );
 
-
+    
 
 }
