@@ -36,4 +36,24 @@ export class SuggestionEffects {
             )
         )
     );
+
+    setSuggestion$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(suggestionActions.setSuggestion),
+            map(action => suggestionActions.setSuggestionSuccess({ suggestion: action.suggestion })),
+            catchError(error => of(suggestionActions.setSuggestionFailure({ error })))
+        )
+    );
+
+    addApprove$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(suggestionActions.addApprove),
+            switchMap(action =>
+                this.authService.addSuggestionApprove(action.id, action.userId).pipe(
+                    map(response => suggestionActions.addApproveSuccess({ suggestions: response })),
+                    catchError(error => of(suggestionActions.addApproveFailure({ error })))
+                )
+            )
+        )
+    );
 }

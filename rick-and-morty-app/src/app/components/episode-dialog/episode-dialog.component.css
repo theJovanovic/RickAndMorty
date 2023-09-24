@@ -64,22 +64,21 @@
 }
 
 .like-button, .dislike-button {
-    background-color: #55cc55; /* Green for like */
+    background-color: #55cc55;
     color: white;
-    border: none;
     padding: 10px 20px;
     margin: 5px;
     cursor: pointer;
-    transition: background-color 0.2s, transform 0.2s;
+    transition: background-color 0.5s, transform 0.5s;
     font-size: 16px;
 }
 
 .dislike-button {
-    background-color: #ff5555; /* Red for dislike */
+    background-color: #ff5555;
 }
 
 .like-button:hover, .dislike-button:hover {
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
 
 .like-count, .dislike-count {

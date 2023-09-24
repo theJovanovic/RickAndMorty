@@ -125,4 +125,9 @@ export class RickMortyApiService {
       this.header)
   }
 
+  addSuggestionApprove(id: number, userId: number) {
+    return this.http.put<any>(`${API_URL}/suggestion/approve/${id}/user/${userId}`,
+      this.header)
+  }
+
 }

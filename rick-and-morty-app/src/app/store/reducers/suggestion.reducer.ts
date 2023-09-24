@@ -1,12 +1,13 @@
 import { createReducer, on } from '@ngrx/store';
 import * as SuggestionActions from "../actions/suggestion.actions";
 import { Suggestion } from 'src/app/models/Suggestion';
+import { ReceivedSuggestion } from 'src/app/models/ReceivedSuggestion';
 
 export const featureKey = 'suggestion'
 
 export interface SuggestionState {
-    suggestions: Suggestion[],
-    selectedSuggestion: Suggestion | null,
+    suggestions: ReceivedSuggestion[],
+    selectedSuggestion: ReceivedSuggestion | null,
     loading: boolean;
     error: any;
 }
@@ -48,10 +49,51 @@ export const reducer = createReducer(
     on(SuggestionActions.getAllSuggestionSuccess, (state, { suggestions }) => ({
         ...state,
         suggestions: suggestions,
+        selectedSuggestion: suggestions[0],
         loading: false
     })),
 
     on(SuggestionActions.getAllSuggestionFailure, (state, { error }) => ({
+        ...state,
+        loading: false,
+        error
+    })),
+
+    on(SuggestionActions.setSuggestion, state => ({
+        ...state,
+        loading: true,
+        error: null
+    })),
+
+    on(SuggestionActions.setSuggestionSuccess, (state, { suggestion }) => ({
+        ...state,
+        selectedSuggestion: suggestion,
+        loading: false
+    })),
+
+    on(SuggestionActions.setSuggestionFailure, (state, { error }) => ({
+        ...state,
+        loading: false,
+        error
+    })),
+
+    on(SuggestionActions.addApprove, state => ({
+        ...state,
+        loading: true,
+        error: null
+    })),
+
+    on(SuggestionActions.addApproveSuccess, (state, { suggestions }) => {
+
+        return ({
+            ...state,
+            suggestions: suggestions,
+            selectedSuggestion: suggestions[suggestions.length-1],
+            loading: false
+        })
+    }),
+
+    on(SuggestionActions.addApproveFailure, (state, { error }) => ({
         ...state,
         loading: false,
         error

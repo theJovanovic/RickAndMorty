@@ -1,11 +1,12 @@
 <div class="episode-suggestions-dialog">
-    <div *ngIf="showForm" class="form-container">
+    <div class="form-container">
         <h1 class="form-header">Add new episode suggestion</h1>
         <form [formGroup]="suggestionForm" (ngSubmit)="onSubmit()">
             <label>
                 Title:
                 <input formControlName="title" />
             </label>
+            <br>
             <label>
                 Plot:
                 <textarea formControlName="plot"></textarea>
@@ -15,18 +16,34 @@
     </div>
 
     <div class="left-panel">
-        <button (click)="toggleForm()">New Suggestion</button>
         <ul *ngIf="(suggestions$ | async) as suggestions">
-            <li *ngFor="let suggestion of suggestions" (click)="selectSuggestion(suggestion)">
+            <li *ngFor="let suggestion of suggestions" [ngClass]="{'selected-suggestion': isSelected(suggestion.id)}"
+                (click)="selectSuggestion(suggestion)">
                 {{suggestion.title}}
             </li>
         </ul>
     </div>
 
-    <div class="right-panel" *ngIf="selectedSuggestion">
+    <div class="right-panel" *ngIf="selectedSuggestion$ | async as selectedSuggestion">
         <h2>{{selectedSuggestion.title}}</h2>
-        <p><strong>Creator:</strong> {{selectedSuggestion.creator}}</p>
-        <p><strong>Date of Creating:</strong> {{selectedSuggestion.date}}</p>
+        <p>
+            <strong>Creator:</strong>
+            <span
+                [ngClass]="{'green-dot': selectedSuggestion.isCreatorActive, 'red-dot': !selectedSuggestion.isCreatorActive}"></span>
+            {{selectedSuggestion.creator}}
+        </p>
+        <p *ngIf="selectedSuggestion.date"><strong>Date of Creating:</strong> {{selectedSuggestion.date.split('T')[0]}}
+        </p>
+        <p><strong>Approvals:</strong> {{selectedSuggestion.approvals}}</p>
+        <p>
+            <strong>Approval rate:</strong> {{selectedSuggestion.approval_rate ?
+            roundToInt(selectedSuggestion.approval_rate) : 0}}%
+        </p>
         <p><strong>Plot Explanation:</strong> {{selectedSuggestion.plot}}</p>
+        <button class="like-button"
+            [ngClass]="{'did-approve': didApprove(selectedSuggestion), 'did-not-approve': !didApprove(selectedSuggestion)}"
+            (click)="approve()">
+            {{ didApprove(selectedSuggestion) ? 'Disapprove' : 'Approve' }}
+        </button>
     </div>
 </div>
