@@ -1,0 +1,16 @@
+<div class="chart-container">
+    <div>
+        <highcharts-chart *ngIf="episodePerLocationOptions" [Highcharts]="Highcharts" [options]="episodePerLocationOptions">
+        </highcharts-chart>
+    </div>
+
+    <div>
+        <highcharts-chart *ngIf="charactersPerLocationOptions" [Highcharts]="Highcharts" [options]="charactersPerLocationOptions">
+        </highcharts-chart>
+    </div>
+
+    <div>
+        <highcharts-chart *ngIf="locationTypeOptions" [Highcharts]="Highcharts" [options]="locationTypeOptions">
+        </highcharts-chart>
+    </div>
+</div>

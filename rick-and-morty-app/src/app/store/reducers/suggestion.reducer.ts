@@ -31,6 +31,7 @@ export const reducer = createReducer(
     on(SuggestionActions.sendSuggestionSuccess, (state, { newSuggestions }) => ({
         ...state,
         suggestions: newSuggestions,
+        selectedSuggestion: newSuggestions[newSuggestions.length - 1],
         loading: false
     })),
 

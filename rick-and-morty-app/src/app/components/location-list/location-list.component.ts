@@ -4,6 +4,8 @@ import { Observable } from 'rxjs'
 import { selectLocations } from 'src/app/store/selectors/location.selectors'
 import * as LocationActions from '../../store/actions/location.actions'
 import { Location } from 'src/app/models/Location'
+import { MatDialog } from '@angular/material/dialog'
+import { LocationDialogComponent } from '../location-dialog/location-dialog.component'
 
 @Component({
   selector: 'app-location-list',
@@ -14,7 +16,7 @@ export class LocationListComponent implements OnInit {
   locations$!: Observable<Location[]>
   typeColorMap: { [type: string]: string } = {}
 
-  constructor(private store: Store) { }
+  constructor(private store: Store, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     const queryString = window.location.search.substring(1)
@@ -35,6 +37,10 @@ export class LocationListComponent implements OnInit {
     const b = Math.floor(Math.random() * 256)
 
     return `rgba(${r}, ${g}, ${b}, ${opacity})`
+  }
+
+  onLocationClick(location_id: number): void {
+    this.dialog.open(LocationDialogComponent, { data: location_id })
   }
 
 }

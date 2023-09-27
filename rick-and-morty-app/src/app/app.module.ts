@@ -30,7 +30,10 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { SuggestionsDialogComponent } from './components/suggestions-dialog/suggestions-dialog.component'
-import { SuggestionEffects } from './store/effects/suggestion.effects'
+import { SuggestionEffects } from './store/effects/suggestion.effects';
+import { LocationChartsComponent } from './components/location-charts/location-charts.component'
+import { HighchartsChartModule } from 'highcharts-angular';
+import { LocationDialogComponent } from './components/location-dialog/location-dialog.component';
 
 @NgModule({
   declarations: [
@@ -48,8 +51,11 @@ import { SuggestionEffects } from './store/effects/suggestion.effects'
     RegistrationComponent,
     LoginComponent,
     SuggestionsDialogComponent,
+    LocationChartsComponent,
+    LocationDialogComponent,
   ],
   imports: [
+    HighchartsChartModule,
     ReactiveFormsModule,
     FormsModule,
     BrowserModule,
