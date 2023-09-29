@@ -22,14 +22,14 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.loginSubscription = this.store.select(selectToken).subscribe(token => {
       if (token) {
-        this.router.navigate(['/character']);
+        this.router.navigate(['/character'])
       }
     });
   }
 
   onSubmit(event: Event) {
     event.preventDefault()
-    const user = new LoginUser(this.email, this.password);
-    this.store.dispatch(UserActions.loginUser({ user: user }));
+    const user = new LoginUser(this.email, this.password)
+    this.store.dispatch(UserActions.loginUser({ user: user }))
   }
 }

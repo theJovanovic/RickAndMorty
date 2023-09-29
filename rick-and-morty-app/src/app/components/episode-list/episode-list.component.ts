@@ -35,7 +35,7 @@ export class EpisodeListComponent implements OnInit {
           .pipe(
             switchMap(nextUrl => {
               if (nextUrl) {
-                return of(nextUrl.replace(/page=(\d+)/, (_, p1) => `page=${parseInt(p1, 10) - 1}`).split('?')[1]);
+                return of(nextUrl.replace(/page=(\d+)/, (_, p1) => `page=${parseInt(p1, 10) - 1}`).split('?')[1])
               } else {
                 return this.store.select(selectPrevUrl).pipe(
                   map(prevUrl => prevUrl ? prevUrl.replace(/page=(\d+)/, (_, p1) => `page=${parseInt(p1, 10) + 1}`).split('?')[1] : "")
@@ -44,7 +44,7 @@ export class EpisodeListComponent implements OnInit {
             }),
             tap(finalUrl => {
               if (finalUrl) {
-                this.store.dispatch(EpisodeActions.loadEpisodes({ query: finalUrl }));
+                this.store.dispatch(EpisodeActions.loadEpisodes({ query: finalUrl }))
               }
             })
           )

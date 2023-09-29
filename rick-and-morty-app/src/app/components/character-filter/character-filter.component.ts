@@ -27,7 +27,6 @@ export class CharacterFilterComponent {
     }
 
     const query = this.constructQueryUrl(filter)
-    // window.location.href = `/character/?page=1&${query}`
     this.store.dispatch(CharacterActions.loadCharacters({ query: `page=1&${query}` }))
   }
 
