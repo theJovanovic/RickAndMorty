@@ -1,5 +1,8 @@
 <div class="dialog-container">
     <div class="chart-container">
-        <highcharts-chart *ngIf="chart" [Highcharts]="Highcharts" [options]="chart"></highcharts-chart>
+        <highcharts-chart *ngIf="speciesChart" [Highcharts]="Highcharts" [options]="speciesChart"></highcharts-chart>
+    </div>
+    <div class="chart-container">
+        <highcharts-chart *ngIf="episodesChart" [Highcharts]="Highcharts" [options]="episodesChart"></highcharts-chart>
     </div>
 </div>

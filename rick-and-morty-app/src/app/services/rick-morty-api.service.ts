@@ -135,8 +135,8 @@ export class RickMortyApiService {
       this.header)
   }
 
-  getLocationPiechart(location_id: number) {
-    return this.http.get<any>(`${API_URL}/location/${location_id}/chart`,
+  getLocationPiecharts(location_id: number) {
+    return this.http.get<any>(`${API_URL}/location/${location_id}/charts`,
       this.header)
   }
 

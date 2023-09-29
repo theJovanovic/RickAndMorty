@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import * as Highcharts from 'highcharts';
 import * as locationActions from '../../store/actions/location.actions'
-import { selectLocationPieChart } from 'src/app/store/selectors/location.selectors';
+import { selectLocationPieChartEpisodes, selectLocationPieChartSpecies } from 'src/app/store/selectors/location.selectors';
 
 @Component({
   selector: 'app-location-dialog',
@@ -13,7 +13,8 @@ import { selectLocationPieChart } from 'src/app/store/selectors/location.selecto
 export class LocationDialogComponent {
   Highcharts = Highcharts;
   location_id: number | null = null
-  chart: Highcharts.Options | null = null
+  speciesChart: Highcharts.Options | null = null
+  episodesChart: Highcharts.Options | null = null
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: number, private store: Store) {
     this.location_id = data
@@ -21,8 +22,9 @@ export class LocationDialogComponent {
 
   ngOnInit(): void {
     if (this.location_id) {
-      this.store.dispatch(locationActions.loadLocationPieChart({ location_id: this.location_id }))
-      this.store.select(selectLocationPieChart).subscribe(result => this.chart = result as Highcharts.Options | null)
+      this.store.dispatch(locationActions.loadLocationPieCharts({ location_id: this.location_id }))
+      this.store.select(selectLocationPieChartSpecies).subscribe(result => this.speciesChart = result as Highcharts.Options | null)
+      this.store.select(selectLocationPieChartEpisodes).subscribe(result => this.episodesChart = result as Highcharts.Options | null)
     }
   }
 

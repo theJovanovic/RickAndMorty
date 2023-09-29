@@ -33,10 +33,10 @@ export class LocationEffects {
 
   loadLocationPiechart$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(LocationActions.loadLocationPieChart),
-      mergeMap(action => this.apiService.getLocationPiechart(action.location_id).pipe(
-        map((data) => LocationActions.loadLocationPieChartSuccess({ locationPieChart: data.locationPieChart })),
-        catchError((error) => of(LocationActions.loadLocationPieChartFailure({ error })))
+      ofType(LocationActions.loadLocationPieCharts),
+      mergeMap(action => this.apiService.getLocationPiecharts(action.location_id).pipe(
+        map((data) => LocationActions.loadLocationPieChartsSuccess({ locationPieChartSpecies: data.locationPieChartSpecies, locationPieChartEpisodes: data.locationPieChartEpisodes })),
+        catchError((error) => of(LocationActions.loadLocationPieChartsFailure({ error })))
       ))
     )
   )

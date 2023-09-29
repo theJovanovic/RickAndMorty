@@ -14,7 +14,8 @@ export interface LocationState {
 	charactersChart: BarChart | null
 	episodesChart: BarChart | null
 	pieChart: PieChart | null
-	locationPieChart: PieChart | null
+	locationPieChartSpecies: PieChart | null
+	locationPieChartEpisodes: PieChart | null
 	loading: boolean
 	error: Error | null
 }
@@ -27,7 +28,8 @@ export const initialState: LocationState = {
 	charactersChart: null,
 	episodesChart: null,
 	pieChart: null,
-	locationPieChart: null,
+	locationPieChartSpecies: null,
+	locationPieChartEpisodes: null,
 	loading: false,
 	error: null
 }
@@ -43,7 +45,7 @@ export const reducer = createReducer(
 	on(LocationActions.loadChartsSuccess, (state, { charactersChart, episodesChart, pieChart }) => ({ ...state, charactersChart: charactersChart, episodesChart: episodesChart, pieChart: pieChart })),
 	on(LocationActions.loadChartsFailure, (state, { error }) => ({ ...state, loading: false, error })),
 
-	on(LocationActions.loadLocationPieChart, state => ({ ...state, loading: true })),
-	on(LocationActions.loadLocationPieChartSuccess, (state, { locationPieChart }) => ({ ...state, locationPieChart: locationPieChart })),
-	on(LocationActions.loadLocationPieChartFailure, (state, { error }) => ({ ...state, loading: false, error }))
+	on(LocationActions.loadLocationPieCharts, state => ({ ...state, loading: true })),
+	on(LocationActions.loadLocationPieChartsSuccess, (state, { locationPieChartSpecies, locationPieChartEpisodes }) => ({ ...state, locationPieChartSpecies: locationPieChartSpecies, locationPieChartEpisodes: locationPieChartEpisodes })),
+	on(LocationActions.loadLocationPieChartsFailure, (state, { error }) => ({ ...state, loading: false, error }))
 )

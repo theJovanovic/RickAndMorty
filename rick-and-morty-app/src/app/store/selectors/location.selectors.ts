@@ -36,7 +36,12 @@ export const selectLocationTypeOptions = createSelector(
 	(state: LocationState) => state.pieChart
 )
 
-export const selectLocationPieChart = createSelector(
+export const selectLocationPieChartSpecies = createSelector(
 	selectLocationState,
-	(state: LocationState) => state.locationPieChart
+	(state: LocationState) => state.locationPieChartSpecies
+)
+
+export const selectLocationPieChartEpisodes = createSelector(
+	selectLocationState,
+	(state: LocationState) => state.locationPieChartEpisodes
 )

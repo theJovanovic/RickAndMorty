@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
-import { Observable } from 'rxjs'
-import { selectEpisodes } from 'src/app/store/selectors/episode.selectors'
+import { Observable, combineLatest, map, mergeMap, of, switchMap, tap } from 'rxjs'
+import { selectEpisodes, selectNextUrl, selectPrevUrl } from 'src/app/store/selectors/episode.selectors'
 import * as EpisodeActions from '../../store/actions/episode.actions'
 import { Episode } from 'src/app/models/Episode'
 import { MatDialog } from '@angular/material/dialog'
@@ -30,6 +30,26 @@ export class EpisodeListComponent implements OnInit {
 
   onEpisodeClick(episode: Episode): void {
     this.dialog.open(EpisodeDialogComponent, { data: episode.id })
+      .afterClosed().subscribe(_ => {
+        this.store.select(selectNextUrl)
+          .pipe(
+            switchMap(nextUrl => {
+              if (nextUrl) {
+                return of(nextUrl.replace(/page=(\d+)/, (_, p1) => `page=${parseInt(p1, 10) - 1}`).split('?')[1]);
+              } else {
+                return this.store.select(selectPrevUrl).pipe(
+                  map(prevUrl => prevUrl ? prevUrl.replace(/page=(\d+)/, (_, p1) => `page=${parseInt(p1, 10) + 1}`).split('?')[1] : "")
+                );
+              }
+            }),
+            tap(finalUrl => {
+              if (finalUrl) {
+                this.store.dispatch(EpisodeActions.loadEpisodes({ query: finalUrl }));
+              }
+            })
+          )
+          .subscribe();
+      })
   }
 
   getCardColor(episode: string): string {
