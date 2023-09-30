@@ -1,0 +1,32 @@
+<div class="admin-panel">
+    <h1>Admin Panel</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Actions</th>
+                <th>Is currently active</th>
+            </tr>
+        </thead>
+        <tbody *ngIf="users$ | async as users">
+            <tr *ngFor="let user of users">
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.firstname }} {{ user.lastname }}</td>
+                <td *ngIf="user.role">
+                    <select [value]="user.role" (change)="updateRole(user, $event)">
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </td>
+                <td>
+                    <button (click)="deleteUser(user.id)">Delete</button>
+                </td>
+                <td>{{user.isActive}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

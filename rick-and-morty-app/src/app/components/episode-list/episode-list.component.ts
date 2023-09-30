@@ -3,10 +3,11 @@ import { Store } from '@ngrx/store'
 import { Observable, combineLatest, map, mergeMap, of, switchMap, tap } from 'rxjs'
 import { selectEpisodes, selectNextUrl, selectPrevUrl } from 'src/app/store/selectors/episode.selectors'
 import * as EpisodeActions from '../../store/actions/episode.actions'
+import * as AdminActions from '../../store/actions/admin.actions'
 import { Episode } from 'src/app/models/Episode'
 import { MatDialog } from '@angular/material/dialog'
 import { EpisodeDialogComponent } from '../episode-dialog/episode-dialog.component'
-import { selectId } from 'src/app/store/selectors/user.selectors'
+import { selectId, selectRole } from 'src/app/store/selectors/user.selectors'
 import { SuggestionsDialogComponent } from '../suggestions-dialog/suggestions-dialog.component'
 
 @Component({
@@ -18,6 +19,7 @@ export class EpisodeListComponent implements OnInit {
   episodes$!: Observable<Episode[]>
   seasonColorMap: { [season: string]: string } = {}
   id: number | null = null
+  isUserAdmin: boolean = false
 
   constructor(private store: Store, private dialog: MatDialog) { }
 
@@ -26,6 +28,9 @@ export class EpisodeListComponent implements OnInit {
     this.store.dispatch(EpisodeActions.loadEpisodes({ query: queryString }))
     this.episodes$ = this.store.select(selectEpisodes)
     this.store.select(selectId).subscribe(id => this.id = id)
+    this.store.select(selectRole).subscribe(role => {
+      this.isUserAdmin = role === "admin" ? true : false
+    })
   }
 
   onEpisodeClick(episode: Episode): void {
@@ -69,6 +74,10 @@ export class EpisodeListComponent implements OnInit {
 
   openSuggestions() {
     this.dialog.open(SuggestionsDialogComponent)
+  }
+
+  deleteEpisode(epsiodeId: number) {
+    this.store.dispatch(AdminActions.deleteEpisode({ episodeId: epsiodeId }))
   }
 
 }

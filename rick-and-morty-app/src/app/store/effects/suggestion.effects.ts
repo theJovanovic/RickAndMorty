@@ -4,6 +4,8 @@ import { EMPTY, of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 import * as suggestionActions from '../actions/suggestion.actions'
 import { RickMortyApiService } from 'src/app/services/rick-morty-api.service';
+import { Suggestion } from 'src/app/models/Suggestion';
+import { ReceivedSuggestion } from 'src/app/models/ReceivedSuggestion';
 
 @Injectable()
 export class SuggestionEffects {
@@ -18,7 +20,7 @@ export class SuggestionEffects {
             ofType(suggestionActions.getAllSuggestion),
             switchMap(_ =>
                 this.authService.getAllSuggestions().pipe(
-                    map(response => suggestionActions.getAllSuggestionSuccess({ suggestions: response })),
+                    map(response => suggestionActions.getAllSuggestionSuccess({ suggestions: response as ReceivedSuggestion[] })),
                     catchError(error => of(suggestionActions.getAllSuggestionFailure({ error })))
                 )
             )
@@ -30,7 +32,7 @@ export class SuggestionEffects {
             ofType(suggestionActions.sendSuggestion),
             switchMap(action =>
                 this.authService.sendSuggestion(action.suggestion).pipe(
-                    map(response => suggestionActions.sendSuggestionSuccess({ newSuggestions: response })),
+                    map(response => suggestionActions.sendSuggestionSuccess({ newSuggestions: response as ReceivedSuggestion[] })),
                     catchError(error => of(suggestionActions.sendSuggestionFailure({ error })))
                 )
             )
@@ -50,7 +52,7 @@ export class SuggestionEffects {
             ofType(suggestionActions.addApprove),
             switchMap(action =>
                 this.authService.addSuggestionApprove(action.id, action.userId).pipe(
-                    map(response => suggestionActions.addApproveSuccess({ suggestions: response })),
+                    map(response => suggestionActions.addApproveSuccess({ suggestions: response as ReceivedSuggestion[] })),
                     catchError(error => of(suggestionActions.addApproveFailure({ error })))
                 )
             )

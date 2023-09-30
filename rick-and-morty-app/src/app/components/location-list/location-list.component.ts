@@ -3,9 +3,11 @@ import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
 import { selectLocations } from 'src/app/store/selectors/location.selectors'
 import * as LocationActions from '../../store/actions/location.actions'
+import * as AdminActions from '../../store/actions/admin.actions'
 import { Location } from 'src/app/models/Location'
 import { MatDialog } from '@angular/material/dialog'
 import { LocationDialogComponent } from '../location-dialog/location-dialog.component'
+import { selectRole } from 'src/app/store/selectors/user.selectors'
 
 @Component({
   selector: 'app-location-list',
@@ -15,6 +17,7 @@ import { LocationDialogComponent } from '../location-dialog/location-dialog.comp
 export class LocationListComponent implements OnInit {
   locations$!: Observable<Location[]>
   typeColorMap: { [type: string]: string } = {}
+  isUserAdmin: boolean = false
 
   constructor(private store: Store, private dialog: MatDialog) { }
 
@@ -22,6 +25,9 @@ export class LocationListComponent implements OnInit {
     const queryString = window.location.search.substring(1)
     this.store.dispatch(LocationActions.loadLocations({ query: queryString }))
     this.locations$ = this.store.select(selectLocations)
+    this.store.select(selectRole).subscribe(role => {
+      this.isUserAdmin = role === "admin" ? true : false
+    })
   }
 
   getCardColor(type: string): string {
@@ -41,6 +47,10 @@ export class LocationListComponent implements OnInit {
 
   onLocationClick(location_id: number): void {
     this.dialog.open(LocationDialogComponent, { data: location_id })
+  }
+
+  deleteLocation(locationId: number) {
+    this.store.dispatch(AdminActions.deleteLocation({ locationId: locationId }))
   }
 
 }

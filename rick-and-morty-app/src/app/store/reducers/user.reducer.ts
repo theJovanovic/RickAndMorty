@@ -1,5 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as UserActions from "../actions/user.actions";
+import { UserRole } from 'src/app/models/User';
 
 export const featureKey = 'user'
 
@@ -8,6 +9,7 @@ export interface UserState {
   firstname: string | null,
   lastname: string | null,
   email: string | null,
+  role: UserRole | null,
   token: string | null;
   loading: boolean;
   error: any;
@@ -18,6 +20,7 @@ const initialState: UserState = {
   firstname: null,
   lastname: null,
   email: null,
+  role: null,
   token: null,
   loading: false,
   error: null,
@@ -54,13 +57,14 @@ export const reducer = createReducer(
     error: null
   })),
 
-  on(UserActions.loginUserSuccess, (state, { id, firstname, lastname, email, token }) => ({
+  on(UserActions.loginUserSuccess, (state, { id, firstname, lastname, email, role, token }) => ({
     ...state,
     loading: false,
     id,
     firstname,
     lastname,
     email,
+    role,
     token
   })),
 
@@ -77,6 +81,7 @@ export const reducer = createReducer(
     firstname: null,
     lastname: null,
     email: null,
+    role: null,
     token: null
   })),
 

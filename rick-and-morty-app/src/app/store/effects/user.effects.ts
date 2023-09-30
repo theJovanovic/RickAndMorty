@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { EMPTY, of } from 'rxjs';
-import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import * as userActions from '../actions/user.actions'
 import { RickMortyApiService } from 'src/app/services/rick-morty-api.service';
+import { UserData } from 'src/app/models/UserData';
+import { UserRole } from 'src/app/models/User';
 
 @Injectable()
 export class UserEffects {
@@ -19,7 +21,7 @@ export class UserEffects {
             switchMap(action =>
                 this.authService.register(action.user).pipe(
                     map(response => {
-                        const { id, firstname, lastname, email, token } = response;
+                        const { id, firstname, lastname, email, token } = response as { id: number, firstname: string, lastname: string, email: string, token: string };
                         return userActions.registerUserSuccess({ id, firstname, lastname, email, token });
                     }),
                     catchError(error => of(userActions.registerUserFailure({ error })))
@@ -34,8 +36,8 @@ export class UserEffects {
             switchMap(action =>
                 this.authService.login(action.user).pipe(
                     map(response => {
-                        const { id, firstname, lastname, email, token } = response;
-                        return userActions.loginUserSuccess({ id, firstname, lastname, email, token });
+                        const { id, firstname, lastname, email, role, token } = response as { id: number, firstname: string, lastname: string, email: string, role: UserRole, token: string };;
+                        return userActions.loginUserSuccess({ id, firstname, lastname, email, role, token });
                     }),
                     catchError(error => of(userActions.loginUserFailure({ error })))
                 )
@@ -61,7 +63,5 @@ export class UserEffects {
             map(action => userActions.setTokenSuccess({ token: action.token }))
         )
     );
-
-    
 
 }

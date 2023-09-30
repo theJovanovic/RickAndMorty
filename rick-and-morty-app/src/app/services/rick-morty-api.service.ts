@@ -9,6 +9,9 @@ import { LoginUser } from '../models/LoginUser'
 import { Store } from '@ngrx/store'
 import { selectToken } from '../store/selectors/user.selectors'
 import { Suggestion } from '../models/Suggestion'
+import { UserData } from '../models/UserData'
+import { BarChart } from '../models/BarChart'
+import { PieChart } from '../models/PieChart'
 
 export const API_URL = 'http://localhost:3000'
 
@@ -43,6 +46,10 @@ export class RickMortyApiService {
         map((result) => result.info.pages)
       )
   }
+  deleteCharacter(characterId: number) {
+    return this.http.delete(`${API_URL}/character/admin/${characterId}`,
+      this.header) as Observable<ApiResponse>
+  }
 
   getLocations(query: string): Observable<ApiResponse> {
     return this.http.get(`${API_URL}/location/?${query}`,
@@ -53,6 +60,10 @@ export class RickMortyApiService {
       this.header).pipe(
         map((result) => result.info.pages)
       )
+  }
+  deleteLocation(locationId: number) {
+    return this.http.delete(`${API_URL}/location/admin/${locationId}`,
+      this.header) as Observable<ApiResponse>
   }
 
   getEpisodes(query: string): Observable<ApiResponse> {
@@ -87,14 +98,18 @@ export class RickMortyApiService {
       )
   }
   likeEpisode(id: number, user_id: number) {
-    return this.http.put<any>(`${API_URL}/episode/like/${id}/user/${user_id}`, this.header) as Observable<Episode>
+    return this.http.put(`${API_URL}/episode/like/${id}/user/${user_id}`, this.header) as Observable<Episode>
   }
   dislikeEpisode(id: number, user_id: number) {
-    return this.http.put<any>(`${API_URL}/episode/dislike/${id}/user/${user_id}`, this.header) as Observable<Episode>
+    return this.http.put(`${API_URL}/episode/dislike/${id}/user/${user_id}`, this.header) as Observable<Episode>
+  }
+  deleteEpisode(episodeId: number) {
+    return this.http.delete(`${API_URL}/episode/admin/${episodeId}`,
+      this.header) as Observable<ApiResponse>
   }
 
   register(user: User) {
-    return this.http.post<any>(`${API_URL}/user/register`, user,
+    return this.http.post(`${API_URL}/user/register`, user,
       {
         headers: new HttpHeaders({
           'Content-Type': 'application/json'
@@ -103,7 +118,7 @@ export class RickMortyApiService {
   }
 
   login(user: LoginUser) {
-    return this.http.post<any>(`${API_URL}/auth/login`, user,
+    return this.http.post(`${API_URL}/auth/login`, user,
       {
         headers: new HttpHeaders({
           'Content-Type': 'application/json'
@@ -112,31 +127,40 @@ export class RickMortyApiService {
   }
 
   logout(id: number) {
-    return this.http.get<any>(`${API_URL}/user/logout/${id}`,
+    return this.http.get(`${API_URL}/user/logout/${id}`,
       this.header)
   }
 
   getAllSuggestions() {
-    return this.http.get<any>(`${API_URL}/suggestion`,
+    return this.http.get(`${API_URL}/suggestion`,
       this.header)
   }
   sendSuggestion(suggestion: Suggestion) {
-    return this.http.post<any>(`${API_URL}/suggestion/add`, suggestion,
+    return this.http.post(`${API_URL}/suggestion/add`, suggestion,
       this.header)
   }
 
   addSuggestionApprove(id: number, userId: number) {
-    return this.http.put<any>(`${API_URL}/suggestion/approve/${id}/user/${userId}`,
+    return this.http.put(`${API_URL}/suggestion/approve/${id}/user/${userId}`,
       this.header)
   }
 
   getCharts() {
-    return this.http.get<any>(`${API_URL}/location/charts`,
-      this.header)
+    return this.http.get(`${API_URL}/location/charts`,
+      this.header) as Observable<{ charactersChart: BarChart, episodesChart: BarChart, pieChart: PieChart }>
   }
 
   getLocationPiecharts(location_id: number) {
-    return this.http.get<any>(`${API_URL}/location/${location_id}/charts`,
+    return this.http.get(`${API_URL}/location/${location_id}/charts`,
+      this.header) as Observable<{ locationPieChartSpecies: PieChart, locationPieChartEpisodes: PieChart }>
+  }
+
+  getUsers() {
+    return this.http.get(`${API_URL}/user/admin`,
+      this.header)
+  }
+  modifyUser(modifiedUser: UserData) {
+    return this.http.put(`${API_URL}/user/admin`, modifiedUser,
       this.header)
   }
 

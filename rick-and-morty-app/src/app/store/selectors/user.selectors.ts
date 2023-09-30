@@ -24,6 +24,11 @@ export const selectEmail = createSelector(
   (state: UserState) => state.email
 );
 
+export const selectRole = createSelector(
+  selectUserFeature,
+  (state: UserState) => state.role
+);
+
 export const selectToken = createSelector(
   selectUserFeature,
   (state: UserState) => state.token

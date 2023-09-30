@@ -1,5 +1,6 @@
 import { createReducer, on } from '@ngrx/store'
 import * as CharacterActions from '../actions/character.actions'
+import * as AdminActions from '../actions/admin.actions'
 import { Character } from 'src/app/models/Character'
 
 export const featureKey = 'character'
@@ -31,5 +32,9 @@ export const reducer = createReducer(
 
 	on(CharacterActions.loadSpecificCharacters, state => ({ ...state, loading: true })),
 	on(CharacterActions.loadSpecificCharactersSuccess, (state, { data }) => ({ ...state, characters: data, loading: false })),
-	on(CharacterActions.loadSpecificCharactersFailure, (state, { error }) => ({ ...state, loading: false, error }))
+	on(CharacterActions.loadSpecificCharactersFailure, (state, { error }) => ({ ...state, loading: false, error })),
+
+	on(AdminActions.deleteCharacter, state => ({ ...state, loading: true })),
+	on(AdminActions.deleteCharacterSuccess, (state, { data, prevUrl, nextUrl, pages }) => ({ ...state, characters: data, prevUrl: prevUrl, nextUrl: nextUrl, pages: pages, loading: false })),
+	on(AdminActions.deleteCharacterFailure, (state, { error }) => ({ ...state, loading: false, error }))
 )

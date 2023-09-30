@@ -2,6 +2,8 @@
 <div *ngIf="locations$ | async as locations" class="location-grid">
   <div *ngFor="let location of locations" class="location-card"
     [ngStyle]="{'background-color': getCardColor(location.type)}" (click)="onLocationClick(location.id)">
+    <button *ngIf="isUserAdmin" class="delete-button"
+      (click)="deleteLocation(location.id); $event.stopPropagation();">X</button>
     <h3>{{ location.name }}</h3>
     <p><strong>Type:</strong> {{ location.type }}</p>
     <p><strong>Dimension:</strong> {{ location.dimension }}</p>

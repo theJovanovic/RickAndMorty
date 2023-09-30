@@ -7,6 +7,7 @@ import { MemoryCardsComponent } from './components/memory-cards/memory-cards.com
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
 import { RegistrationComponent } from './components/registration/registration.component'
 import { LoginComponent } from './components/login/login.component'
+import { AdminComponent } from './components/admin/admin.component'
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'memorycards', component: MemoryCardsComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'admin', component: AdminComponent },
   { path: '**', component: PageNotFoundComponent }
 ]
 

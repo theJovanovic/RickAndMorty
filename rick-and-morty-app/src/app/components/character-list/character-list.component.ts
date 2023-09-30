@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { Observable, switchMap, tap } from 'rxjs'
 import * as CharacterActions from '../../store/actions/character.actions'
+import * as AdminActions from '../../store/actions/admin.actions'
 import { selectCharacters } from '../../store/selectors/character.selectors'
 import { Character } from 'src/app/models/Character'
 import { MatDialog } from '@angular/material/dialog'
 import { CharacterDialogComponent } from '../character-dialog/character-dialog.component'
+import { selectRole } from 'src/app/store/selectors/user.selectors'
 
 @Component({
   selector: 'app-character-list',
@@ -15,6 +17,7 @@ import { CharacterDialogComponent } from '../character-dialog/character-dialog.c
 export class CharacterListComponent implements OnInit {
 
   characters$!: Observable<Character[]>
+  isUserAdmin: boolean = false
 
   constructor(private store: Store, private dialog: MatDialog) { }
 
@@ -22,6 +25,9 @@ export class CharacterListComponent implements OnInit {
     const queryString = window.location.search.substring(1)
     this.store.dispatch(CharacterActions.loadCharacters({ query: queryString }))
     this.characters$ = this.store.select(selectCharacters)
+    this.store.select(selectRole).subscribe(role => {
+      this.isUserAdmin = role === "admin" ? true : false
+    })
   }
 
   getCardColor(status: string): string {
@@ -44,5 +50,8 @@ export class CharacterListComponent implements OnInit {
     this.dialog.open(CharacterDialogComponent, { data: character })
   }
 
+  deleteCharacter(characterId: number) {
+    this.store.dispatch(AdminActions.deleteCharacter({ characterId: characterId }))
+  }
 
 }

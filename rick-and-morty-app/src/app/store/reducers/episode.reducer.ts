@@ -1,5 +1,6 @@
 import { createReducer, on } from '@ngrx/store'
 import * as EpisodeActions from '../actions/episode.actions'
+import * as AdminActions from '../actions/admin.actions'
 import { Episode } from 'src/app/models/Episode'
 
 export const featureKey = 'episode'
@@ -44,4 +45,8 @@ export const reducer = createReducer(
     on(EpisodeActions.loadEpisode, state => ({ ...state, loading: true })),
     on(EpisodeActions.loadEpisodeSuccess, (state, { data }) => ({ ...state, singleEpisode: data, loading: false })),
     on(EpisodeActions.loadEpisodeFailure, (state, { error }) => ({ ...state, loading: false, error })),
+
+    on(AdminActions.deleteEpisode, state => ({ ...state, loading: true })),
+    on(AdminActions.deleteEpisodeSuccess, (state, { data, prevUrl, nextUrl, pages }) => ({ ...state, episodes: data, prevUrl: prevUrl, nextUrl: nextUrl, pages: pages, loading: false })),
+    on(AdminActions.deleteEpisodeFailure, (state, { error }) => ({ ...state, loading: false, error }))
 )

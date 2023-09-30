@@ -7,6 +7,7 @@
 }
 
 .character-card {
+    position: relative;
     display: flex;
     background-color: #f9f9f9;
     padding: 15px;
@@ -91,4 +92,14 @@ label {
     border: 1px solid rgba(0, 0, 0, 0.4);
     box-shadow: -4px 4px 8px rgba(0, 0, 0, 0.3);
     font-style: italic;
+}
+
+.delete-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: red;
+    color: white;
+    border: 2px solid darkred;
+    cursor: pointer;
 }

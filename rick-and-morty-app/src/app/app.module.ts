@@ -12,6 +12,7 @@ import * as fromLocation from './store/reducers/location.reducer'
 import * as fromEpisode from './store/reducers/episode.reducer'
 import * as fromUser from './store/reducers/user.reducer'
 import * as fromSuggestions from './store/reducers/suggestion.reducer'
+import * as fromAdmin from './store/reducers/admin.reducer'
 import { NavbarComponent } from './components/navbar/navbar.component'
 import { LocationListComponent } from './components/location-list/location-list.component'
 import { EpisodeListComponent } from './components/episode-list/episode-list.component'
@@ -34,6 +35,8 @@ import { SuggestionEffects } from './store/effects/suggestion.effects';
 import { LocationChartsComponent } from './components/location-charts/location-charts.component'
 import { HighchartsChartModule } from 'highcharts-angular';
 import { LocationDialogComponent } from './components/location-dialog/location-dialog.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { AdminEffects } from './store/effects/admin.effects'
 
 @NgModule({
   declarations: [
@@ -53,6 +56,7 @@ import { LocationDialogComponent } from './components/location-dialog/location-d
     SuggestionsDialogComponent,
     LocationChartsComponent,
     LocationDialogComponent,
+    AdminComponent,
   ],
   imports: [
     HighchartsChartModule,
@@ -69,14 +73,16 @@ import { LocationDialogComponent } from './components/location-dialog/location-d
         location: fromLocation.reducer,
         episode: fromEpisode.reducer,
         user: fromUser.reducer,
-        suggestion: fromSuggestions.reducer
+        suggestion: fromSuggestions.reducer,
+        admin: fromAdmin.reducer
       }),
     EffectsModule.forRoot([
       CharacterEffects,
       LocationEffects,
       EpisodeEffects,
       UserEffects,
-      SuggestionEffects])
+      SuggestionEffects,
+      AdminEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]
