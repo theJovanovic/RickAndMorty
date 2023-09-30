@@ -50,7 +50,9 @@ export class LocationListComponent implements OnInit {
   }
 
   deleteLocation(locationId: number) {
-    this.store.dispatch(AdminActions.deleteLocation({ locationId: locationId }))
+    if (window.confirm("Are you sure you want to proceed?")) {
+      this.store.dispatch(AdminActions.deleteLocation({ locationId: locationId }))
+    }
   }
 
 }

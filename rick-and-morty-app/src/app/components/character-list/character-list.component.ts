@@ -51,7 +51,9 @@ export class CharacterListComponent implements OnInit {
   }
 
   deleteCharacter(characterId: number) {
-    this.store.dispatch(AdminActions.deleteCharacter({ characterId: characterId }))
+    if (window.confirm("Are you sure you want to proceed?")) {
+      this.store.dispatch(AdminActions.deleteCharacter({ characterId: characterId }))
+    }
   }
 
 }

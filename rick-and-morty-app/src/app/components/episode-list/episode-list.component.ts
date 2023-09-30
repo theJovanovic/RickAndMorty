@@ -77,7 +77,9 @@ export class EpisodeListComponent implements OnInit {
   }
 
   deleteEpisode(epsiodeId: number) {
-    this.store.dispatch(AdminActions.deleteEpisode({ episodeId: epsiodeId }))
+    if (window.confirm("Are you sure you want to proceed?")) {
+      this.store.dispatch(AdminActions.deleteEpisode({ episodeId: epsiodeId }))
+    }
   }
 
 }
