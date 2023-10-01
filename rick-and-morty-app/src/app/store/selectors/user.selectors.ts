@@ -33,3 +33,8 @@ export const selectToken = createSelector(
   selectUserFeature,
   (state: UserState) => state.token
 );
+
+export const selectError = createSelector(
+  selectUserFeature,
+  (state: UserState) => state.error
+);

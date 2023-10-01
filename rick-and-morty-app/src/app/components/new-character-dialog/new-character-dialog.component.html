@@ -1,0 +1,32 @@
+<div *ngIf="isUserAdmin" class="admin-form">
+    <h2>Create New Character</h2>
+    <form (submit)="createNewCharacter()">
+        <label for="name">Name:</label>
+        <input type="text" id="name" [(ngModel)]="newCharacter.name" name="name" required>
+
+        <label for="status">Status:</label>
+        <input type="text" id="status" [(ngModel)]="newCharacter.status" name="status" required>
+
+        <label for="species">Species:</label>
+        <input type="text" id="species" [(ngModel)]="newCharacter.species" name="species" required>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" [(ngModel)]="newCharacter.gender" name="gender" required>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Genderless">Genderless</option>
+            <option value="unknown">Unknown</option>
+        </select>
+
+        <label for="image">Image URL:</label>
+        <input type="text" id="image" [(ngModel)]="newCharacter.image" name="image" required>
+
+        <label for="origin">Origin:</label>
+        <input type="text" id="origin" [(ngModel)]="newCharacter.origin.name" name="origin" required>
+
+        <label for="location">Location:</label>
+        <input type="text" id="location" [(ngModel)]="newCharacter.location.name" name="location" required>
+
+        <button type="submit">Create</button>
+    </form>
+</div>

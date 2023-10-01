@@ -23,6 +23,10 @@ export const reducer = createReducer(
 	on(AdminActions.loadUsersSuccess, (state, { users }) => ({ ...state, users: users, loading: false })),
 	on(AdminActions.loadUsersFailure, (state, { error }) => ({ ...state, loading: false, error })),
 
+	on(AdminActions.deleteUser, state => ({ ...state, loading: true })),
+	on(AdminActions.deleteUserSuccess, (state, { users }) => ({ ...state, users: users, loading: false })),
+	on(AdminActions.deleteUserFailure, (state, { error }) => ({ ...state, loading: false, error })),
+
 	on(AdminActions.modifyUser, state => ({ ...state, loading: true })),
 	on(AdminActions.modifyUserSuccess, (state, { users }) => ({ ...state, users: users, loading: false })),
 	on(AdminActions.modifyUserFailure, (state, { error }) => ({ ...state, loading: false, error })),

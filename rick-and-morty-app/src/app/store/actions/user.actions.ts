@@ -2,6 +2,8 @@ import { createAction, props } from '@ngrx/store';
 import { LoginUser } from 'src/app/models/LoginUser';
 import { User, UserRole } from 'src/app/models/User';
 
+export const clearError = createAction('[User] Clear Error');
+
 export const registerUser = createAction('[User] Register User', props<{ user: User }>());
 export const registerUserSuccess = createAction('[User] Register User Success', props<{ id: number, firstname: string, lastname: string, email: string, token: string }>());
 export const registerUserFailure = createAction('[User] Register User Failure', props<{ error: Error }>());

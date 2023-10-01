@@ -30,7 +30,7 @@ export class AdminComponent implements OnInit {
 
   deleteUser(userId: number): void {
     if (window.confirm("Are you sure you want to proceed?")) {
-      alert(`delete user ${userId}`)
+      this.store.dispatch(adminActions.deleteUser({ id: userId }))
     }
   }
 }

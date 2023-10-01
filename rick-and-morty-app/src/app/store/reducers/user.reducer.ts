@@ -29,6 +29,12 @@ const initialState: UserState = {
 export const reducer = createReducer(
   initialState,
 
+  on(UserActions.clearError, (state) => ({
+    ...state,
+    error: null
+  })),
+
+
   on(UserActions.registerUser, state => ({
     ...state,
     loading: true,

@@ -12,6 +12,10 @@ export const modifyUser = createAction('[Admin] Modidy User', props<{ user: User
 export const modifyUserSuccess = createAction('[Admin] Modidy User Success', props<{ users: UserData[] }>())
 export const modifyUserFailure = createAction('[Admin] Modidy User Failure', props<{ error: Error }>())
 
+export const deleteUser = createAction('[Admin] Delete User', props<{ id: number }>())
+export const deleteUserSuccess = createAction('[Admin] Delete User Success', props<{ users: UserData[] }>())
+export const deleteUserFailure = createAction('[Admin] Delete User Failure', props<{ error: Error }>())
+
 export const deleteCharacter = createAction('[Admin] Delete Character', props<{ characterId: number }>())
 export const deleteCharacterSuccess = createAction('[Admin] Delete Character Success', props<{ data: Character[], prevUrl: string | null, nextUrl: string | null, pages: number }>())
 export const deleteCharacterFailure = createAction('[Admin] Delete Character Failure', props<{ error: Error }>())

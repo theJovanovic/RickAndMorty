@@ -36,7 +36,8 @@ import { LocationChartsComponent } from './components/location-charts/location-c
 import { HighchartsChartModule } from 'highcharts-angular';
 import { LocationDialogComponent } from './components/location-dialog/location-dialog.component';
 import { AdminComponent } from './components/admin/admin.component';
-import { AdminEffects } from './store/effects/admin.effects'
+import { AdminEffects } from './store/effects/admin.effects';
+import { NewCharacterDialogComponent } from './components/new-character-dialog/new-character-dialog.component'
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { AdminEffects } from './store/effects/admin.effects'
     LocationChartsComponent,
     LocationDialogComponent,
     AdminComponent,
+    NewCharacterDialogComponent,
   ],
   imports: [
     HighchartsChartModule,

@@ -8,6 +8,8 @@ import { Character } from 'src/app/models/Character'
 import { MatDialog } from '@angular/material/dialog'
 import { CharacterDialogComponent } from '../character-dialog/character-dialog.component'
 import { selectRole } from 'src/app/store/selectors/user.selectors'
+import { NewCharacterDialogComponent } from '../new-character-dialog/new-character-dialog.component'
+import { UserRole } from 'src/app/models/User'
 
 @Component({
   selector: 'app-character-list',
@@ -26,7 +28,7 @@ export class CharacterListComponent implements OnInit {
     this.store.dispatch(CharacterActions.loadCharacters({ query: queryString }))
     this.characters$ = this.store.select(selectCharacters)
     this.store.select(selectRole).subscribe(role => {
-      this.isUserAdmin = role === "admin" ? true : false
+      this.isUserAdmin = role === UserRole.ADMIN ? true : false
     })
   }
 
@@ -54,6 +56,10 @@ export class CharacterListComponent implements OnInit {
     if (window.confirm("Are you sure you want to proceed?")) {
       this.store.dispatch(AdminActions.deleteCharacter({ characterId: characterId }))
     }
+  }
+
+  openCharacterCreationWindow() {
+    this.dialog.open(NewCharacterDialogComponent)
   }
 
 }

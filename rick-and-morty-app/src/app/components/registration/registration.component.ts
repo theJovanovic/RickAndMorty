@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as UserActions from "../../store/actions/user.actions"
 import { User } from 'src/app/models/User';
-import { selectToken } from "../../store/selectors/user.selectors"
-import { tap } from 'rxjs';
-import { Subscription } from 'rxjs';
+import { selectError, selectToken } from "../../store/selectors/user.selectors"
+import { Subscription, filter, tap, takeUntil, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,21 +16,34 @@ export class RegistrationComponent implements OnInit {
   lastname: string = '';
   email: string = '';
   password: string = '';
-  registerSubscription!: Subscription;
+  private unsubscribe$ = new Subject<void>();
 
   constructor(private store: Store, private router: Router) { }
 
-  ngOnInit(): void {
-    // this.registerSubscription = this.store.select(selectToken).subscribe(token => {
-    //   if (token) {
-    //     this.router.navigate(['/character']);
-    //   }
-    // });
+  ngOnInit() {
+    this.store.select(selectToken).subscribe(token => {
+      if (token) {
+        this.router.navigate(['/character']);
+      }
+    });
+    this.store.select(selectError)
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        filter(error => !!error),
+        tap(response => alert(response.error.message))
+      )
+      .subscribe();
   }
 
   onSubmit(event: Event) {
     event.preventDefault()
     const newUser = new User(this.firstname, this.lastname, this.email, this.password);
     this.store.dispatch(UserActions.registerUser({ user: newUser }));
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+    this.store.dispatch(UserActions.clearError());
   }
 }

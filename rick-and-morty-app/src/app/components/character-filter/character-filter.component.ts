@@ -28,6 +28,7 @@ export class CharacterFilterComponent {
 
     const query = this.constructQueryUrl(filter)
     this.store.dispatch(CharacterActions.loadCharacters({ query: `page=1&${query}` }))
+    this.showFilters = !this.showFilters
   }
 
 

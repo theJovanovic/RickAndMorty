@@ -36,5 +36,9 @@ export const reducer = createReducer(
 
 	on(AdminActions.deleteCharacter, state => ({ ...state, loading: true })),
 	on(AdminActions.deleteCharacterSuccess, (state, { data, prevUrl, nextUrl, pages }) => ({ ...state, characters: data, prevUrl: prevUrl, nextUrl: nextUrl, pages: pages, loading: false })),
-	on(AdminActions.deleteCharacterFailure, (state, { error }) => ({ ...state, loading: false, error }))
+	on(AdminActions.deleteCharacterFailure, (state, { error }) => ({ ...state, loading: false, error })),
+
+	on(CharacterActions.createCharacter, state => ({ ...state, loading: true })),
+	on(CharacterActions.createCharacterSuccess, (state, { data, prevUrl, nextUrl, pages }) => ({ ...state, characters: data, prevUrl: prevUrl, nextUrl: nextUrl, pages: pages, loading: false })),
+	on(CharacterActions.createCharacterFailure, (state, { error }) => ({ ...state, loading: false, error })),
 )

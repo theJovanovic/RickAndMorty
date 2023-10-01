@@ -12,6 +12,7 @@ import { Suggestion } from '../models/Suggestion'
 import { UserData } from '../models/UserData'
 import { BarChart } from '../models/BarChart'
 import { PieChart } from '../models/PieChart'
+import { NewCharacter } from '../models/NewCharacter'
 
 export const API_URL = 'http://localhost:3000'
 
@@ -49,6 +50,10 @@ export class RickMortyApiService {
   }
   deleteCharacter(characterId: number) {
     return this.http.delete(`${API_URL}/character/admin/${characterId}`,
+      this.header) as Observable<ApiResponse>
+  }
+  createCharacter(character: NewCharacter) {
+    return this.http.post(`${API_URL}/character/admin/create`, character,
       this.header) as Observable<ApiResponse>
   }
 
@@ -162,6 +167,10 @@ export class RickMortyApiService {
   }
   modifyUser(modifiedUser: UserData) {
     return this.http.put(`${API_URL}/user/admin`, modifiedUser,
+      this.header)
+  }
+  deleteUser(id: number) {
+    return this.http.delete(`${API_URL}/user/admin/${id}`,
       this.header)
   }
 

@@ -32,4 +32,14 @@ export class CharacterEffects {
     )
   )
 
+  createCharacter$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CharacterActions.createCharacter),
+      mergeMap((action) => this.apiService.createCharacter(action.character).pipe(
+        map((data) => CharacterActions.createCharacterSuccess({ data: data.results as Character[], prevUrl: data.info.prev, nextUrl: data.info.next, pages: data.info.pages })),
+        catchError((error) => of(CharacterActions.createCharacterFailure({ error })))
+      ))
+    )
+  )
+
 }

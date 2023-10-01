@@ -25,6 +25,16 @@ export class AdminEffects {
     )
   )
 
+  deleteUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AdminActions.deleteUser),
+      mergeMap((action) => this.apiService.deleteUser(action.id).pipe(
+        map((data) => AdminActions.deleteUserSuccess({ users: data as UserData[] })),
+        catchError((error) => of(AdminActions.deleteUserFailure({ error })))
+      ))
+    )
+  )
+
   modifyUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AdminActions.modifyUser),
