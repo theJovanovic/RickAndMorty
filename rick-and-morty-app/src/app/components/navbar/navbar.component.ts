@@ -3,9 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs'
 import { AuthService } from 'src/app/AuthService';
 import * as UserActions from '../../store/actions/user.actions'
-import { selectId, selectRole, selectToken } from 'src/app/store/selectors/user.selectors';
-import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
+import { selectId, selectRole } from 'src/app/store/selectors/user.selectors';
 import { UserRole } from 'src/app/models/User';
 
 @Component({
@@ -14,27 +12,18 @@ import { UserRole } from 'src/app/models/User';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-  isTokenAvailable$: Observable<boolean> | undefined;
   userId: number | null = null
-  token: string | null = null
-  logoutSubscription!: Subscription;
+  isTokenAvailable$: Observable<boolean> | undefined;
   isUserAdmin: boolean = false
 
-  constructor(private authService: AuthService, private store: Store, private router: Router) { }
+  constructor(private authService: AuthService, private store: Store) { }
 
-  ngOnInit(): void {
-    this.isTokenAvailable$ = this.authService.isTokenAvailable();
+  ngOnInit() {
+    this.isTokenAvailable$ = this.authService.isTokenAvailable()
     this.store.select(selectId).subscribe(id => this.userId = id)
-    this.store.select(selectToken).subscribe(token => this.token = token)
     this.store.select(selectRole).subscribe(role => {
       this.isUserAdmin = role === UserRole.ADMIN ? true : false
     })
-
-    this.logoutSubscription = this.store.select(selectToken).subscribe(token => {
-      // if (!token) {
-      //   this.router.navigate(['/login']);
-      // }
-    });
   }
 
   logout() {

@@ -24,7 +24,6 @@ export class AdminComponent implements OnInit {
     const element = event.target as HTMLSelectElement;
     const role = element.value;
     user = { ...user, role: role }
-    console.log(user)
     this.store.dispatch(adminActions.modifyUser({ user }))
   }
 

@@ -16,18 +16,18 @@ import { selectId } from 'src/app/store/selectors/user.selectors'
   styleUrls: ['./episode-dialog.component.css']
 })
 export class EpisodeDialogComponent implements OnInit {
-  episode_id: number
+  episodeId: number
   charactersInEpisode$!: Observable<Character[]>;
   episode$!: Observable<Episode | null>
   id: number | null = null
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: number, private store: Store) {
-    this.episode_id = data
+    this.episodeId = data
   }
 
   ngOnInit(): void {
     this.store.select(selectId).subscribe(id => this.id = id)
-    this.store.dispatch(EpisodeActions.loadEpisode({ id: this.episode_id }))
+    this.store.dispatch(EpisodeActions.loadEpisode({ id: this.episodeId }))
     this.episode$ = this.store.select(selectEpisode)
     this.episode$.subscribe(episode => {
       if (episode != null) {
@@ -61,13 +61,13 @@ export class EpisodeDialogComponent implements OnInit {
 
   like() {
     if (this.id) {
-      this.store.dispatch(EpisodeActions.likeEpisode({ id: this.episode_id, user_id: this.id }))
+      this.store.dispatch(EpisodeActions.likeEpisode({ id: this.episodeId, user_id: this.id }))
     }
   }
 
   dislike() {
     if (this.id) {
-      this.store.dispatch(EpisodeActions.dislikeEpisode({ id: this.episode_id, user_id: this.id }))
+      this.store.dispatch(EpisodeActions.dislikeEpisode({ id: this.episodeId, user_id: this.id }))
     }
   }
 

@@ -27,7 +27,8 @@ export class RickMortyApiService {
   constructor(private http: HttpClient, private store: Store) {
     this.store.select(selectToken).subscribe(token => this.header = {
       headers: new HttpHeaders({
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
       })
     })
   }
@@ -98,10 +99,10 @@ export class RickMortyApiService {
       )
   }
   likeEpisode(id: number, user_id: number) {
-    return this.http.put(`${API_URL}/episode/like/${id}/user/${user_id}`, this.header) as Observable<Episode>
+    return this.http.put(`${API_URL}/episode/like/${id}/user/${user_id}`, {}, this.header) as Observable<Episode>
   }
   dislikeEpisode(id: number, user_id: number) {
-    return this.http.put(`${API_URL}/episode/dislike/${id}/user/${user_id}`, this.header) as Observable<Episode>
+    return this.http.put(`${API_URL}/episode/dislike/${id}/user/${user_id}`, {}, this.header) as Observable<Episode>
   }
   deleteEpisode(episodeId: number) {
     return this.http.delete(`${API_URL}/episode/admin/${episodeId}`,
@@ -141,7 +142,7 @@ export class RickMortyApiService {
   }
 
   addSuggestionApprove(id: number, userId: number) {
-    return this.http.put(`${API_URL}/suggestion/approve/${id}/user/${userId}`,
+    return this.http.put(`${API_URL}/suggestion/approve/${id}/user/${userId}`, {},
       this.header)
   }
 
